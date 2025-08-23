@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Hadith Mubarak - حدیث مبارک</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2D5016;
+            --light-green: #4A7C59;
+            --gold: #D4AF37;
+            --cream: #F7F5F0;
+            --dark-green: #1A2E0A;
+            --text-dark: #2C3E50;
+            --shadow: rgba(45, 80, 22, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Amiri', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #E8F5E8 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .urdu-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            font-family: 'Amiri', serif;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .celebration-text {
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(45, 80, 22, 0.1);
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        /* Header Navigation */
+        .content-header {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 1rem 0;
+        }
+
+        .nav-pills {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.25rem;
+        }
+
+        .nav-pills .nav-link {
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .nav-pills .nav-link.active {
+            background: white;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* Content Layout */
+        .content-body {
+            padding: 2rem;
+            min-height: 70vh;
+        }
+
+        /* Left Side - Hadith */
+        .hadith-section {
+            border-right: 2px solid #f0f0f0;
+            padding-right: 2rem;
+        }
+
+        .hadith-card {
+            background: linear-gradient(135deg, #f8f9fa, white);
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 5px solid var(--gold);
+            position: relative;
+            min-height: 400px;
+        }
+
+        .hadith-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--gold);
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            opacity: 0.3;
+        }
+
+        .hadith-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .hadith-reference {
+            background: rgba(45, 80, 22, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid rgba(45, 80, 22, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Schedule Selection (Initial Screen) */
+        .schedule-selection {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .schedule-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .schedule-option {
+            background: linear-gradient(135deg, white, #f8f9fa);
+            border: 2px solid rgba(45, 80, 22, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-option:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.15);
+        }
+
+        .schedule-option.selected {
+            border-color: var(--primary-green);
+            background: rgba(45, 80, 22, 0.05);
+        }
+
+        .schedule-icon {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Right Side - Dashboard & Settings */
+        .sidebar-section {
+            padding-left: 2rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 80, 22, 0.3);
+            background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Practice Question */
+        .practice-question {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .practice-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* Dashboard Stats */
+        .stat-card {
+            background: linear-gradient(135deg, white, #f8f9fa);
+            border: none;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(45, 80, 22, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Progress Bar */
+        .progress {
+            height: 12px;
+            border-radius: 10px;
+            background: rgba(45, 80, 22, 0.1);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-green), var(--light-green));
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        /* Settings */
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 2px solid rgba(45, 80, 22, 0.1);
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(45, 80, 22, 0.1);
+        }
+
+        /* Notification Status */
+        .notification-status {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .notification-status.enabled {
+            background: rgba(40, 167, 69, 0.1);
+            border-color: #28a745;
+        }
+
+        .notification-status.disabled {
+            background: rgba(220, 53, 69, 0.1);
+            border-color: #dc3545;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .celebration-text {
+                font-size: 0.8rem;
+            }
+
+            .content-body {
+                padding: 1rem;
+            }
+
+            .hadith-section {
+                border-right: none;
+                border-bottom: 2px solid #f0f0f0;
+                padding-right: 0;
+                padding-bottom: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .sidebar-section {
+                padding-left: 0;
+            }
+
+            .schedule-options {
+                grid-template-columns: 1fr;
+            }
+
+            .practice-options {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Islamic Patterns */
+        .pattern-bg {
+            background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23D4AF37" fill-opacity="0.05"><polygon points="30 0 60 30 30 60 0 30"/></g></g></svg>');
+        }
+
+        /* Islamic Decoration */
+        .islamic-decoration {
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        /* Hidden class */
+        .d-none {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="pattern-bg">
+    <div class="header">
+        <div class="container">
+            <h1><i class="fas fa-mosque"></i> Daily Hadith Mubarak</h1>
+            <div class="celebration-text">
+                <i class="fas fa-star"></i>
+                Celebrating 1500th Blessed Year of Prophet Muhammad ﷺ
+                <br>
+                <small>جشن ولادت النبی ﷺ مبارک</small>
+                <i class="fas fa-star"></i>
+
+                <!-- Navigation moved to header -->
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <ul class="nav nav-pills justify-content-center" id="mainNav">
+                            <li class="nav-item">
+                                <button class="nav-link active" id="hadith-nav" onclick="showSection('hadith')">
+                                    <i class="fas fa-book-open"></i> Today's Hadith
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="dashboard-nav" onclick="showSection('dashboard')">
+                                    <i class="fas fa-chart-line"></i> Dashboard
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="settings-nav" onclick="showSection('settings')">
+                                    <i class="fas fa-cog"></i> Settings
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="content-body">
+
+                <!-- Schedule Selection (Initial Screen) -->
+                <div id="schedule-selection" class="schedule-selection">
+                    <h2 class="mb-4 urdu-text">اعمال کا دارومدار نیتوں پر ہے</h2>
+                    <p class="lead">اپنا مطالعہ شیڈول منتخب کریں</p>
+                    <div class="schedule-options">
+                        <div class="schedule-option" data-schedule="today" onclick="selectSchedule('today')">
+                            <div class="schedule-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <h5>آج کا شیڈول</h5>
+                            <p>آج کی ایک حدیث</p>
+                        </div>
+                        <div class="schedule-option" data-schedule="week" onclick="selectSchedule('week')">
+                            <div class="schedule-icon">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                            <h5>ہفتہ وار شیڈول</h5>
+                            <p>سات دن کے لیے احادیث</p>
+                        </div>
+                        <div class="schedule-option" data-schedule="month" onclick="selectSchedule('month')">
+                            <div class="schedule-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h5>ماہانہ شیڈول</h5>
+                            <p>ایک ماہ کے لیے احادیث</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary btn-lg" id="start-schedule" onclick="startSelectedSchedule()"
+                            disabled>
+                            <i class="fas fa-play"></i> شروع کریں
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Content (Hadith + Sidebar) -->
+                <div id="main-content" class="d-none">
+                    <div class="row">
+                        <!-- Left Side - Hadith -->
+                        <div class="col-lg-8" id="hadith-section">
+                            <div class="hadith-section">
+                                <div class="text-center mb-3">
+                                    <h3><i class="fas fa-calendar-day"></i> Hadith of the Day</h3>
+                                    <small id="currentDate"></small>
+                                    <div class="islamic-decoration">☪ ❋ ☪</div>
+                                </div>
+
+                                <div class="hadith-card fade-in">
+                                    <div class="hadith-text urdu-text" id="hadithText">
+                                        Loading today's Hadith...
+                                    </div>
+                                </div>
+
+                                <div class="hadith-reference" id="hadithReference">
+                                    Reference loading...
+                                </div>
+
+                                <!-- Practice Question -->
+                                <div class="practice-question" id="practice-question">
+                                    <h5>کیا آپ نے اس حدیث پر عمل کیا؟</h5>
+                                    <div class="practice-options">
+                                        <button class="btn btn-success" onclick="markAsPracticed(true)">
+                                            <i class="fas fa-check"></i> جی ہاں
+                                        </button>
+                                        <button class="btn btn-outline-primary" onclick="markAsPracticed(false)">
+                                            <i class="fas fa-times"></i> نہیں
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-primary" onclick="getRandomHadith()">
+                                        <i class="fas fa-random"></i> اگلی حدیث
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side - Dashboard/Settings -->
+                        <div class="col-lg-4" id="sidebar-section">
+                            <div class="sidebar-section">
+
+                                <!-- Dashboard Content -->
+                                <div id="dashboard-content">
+                                    <h5 class="mb-3"><i class="fas fa-chart-line"></i> آپ کی پیش قدمی</h5>
+
+                                    <div class="stat-card">
+                                        <span class="stat-number" id="totalRead">0</span>
+                                        <div class="stat-label">کل پڑھی گئی احادیث</div>
+                                    </div>
+
+                                    <div class="stat-card">
+                                        <span class="stat-number" id="totalPracticed">0</span>
+                                        <div class="stat-label">عمل کی گئی احادیث</div>
+                                    </div>
+
+                                    <div class="stat-card">
+                                        <span class="stat-number" id="currentStreak">0</span>
+                                        <div class="stat-label">مسلسل دن</div>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <h6>ہفتہ وار پیش قدمی</h6>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>پروگرس</span>
+                                            <span id="weeklyProgress">0/7</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar" id="weeklyProgressBar" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <h6>ماہانہ پیش قدمی</h6>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>پروگرس</span>
+                                            <span id="monthlyProgress">0/30</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar" id="monthlyProgressBar" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Recent Hadiths -->
+                                    <div class="mt-4">
+                                        <h6>حالیہ پڑھی گئی احادیث</h6>
+                                        <div id="recentHadiths" class="mt-2">
+                                            <!-- Will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Settings Content -->
+                                <div id="settings-content" class="d-none">
+                                    <h5 class="mb-3"><i class="fas fa-cog"></i> ترتیبات</h5>
+
+                                    <!-- Notification Status -->
+                                    <div id="notificationStatus" class="notification-status">
+                                        <div id="notificationStatusText">
+                                            <i class="fas fa-bell-slash"></i> یاددہانی کی اجازت نہیں ملی
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-primary mt-2" id="requestNotificationBtn"
+                                            onclick="requestNotificationPermission()">
+                                            اجازت طلب کریں
+                                        </button>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">شیڈول تبدیل کریں</label>
+                                        <select class="form-select" id="schedule-change">
+                                            <option value="today">آج کا شیڈول</option>
+                                            <option value="week">ہفتہ وار شیڈول</option>
+                                            <option value="month">ماہانہ شیڈول</option>
+                                        </select>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-bell"></i> یاددہانی کی ترتیبات</h6>
+                                        <small class="text-muted">آپ کے set کیے گئے وقت پر notification آئے گی</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">صبح کی یاددہانی</label>
+                                        <input type="time" class="form-control" id="morningTime" value="07:00">
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="checkbox" id="morningEnabled"
+                                                onchange="updateNotificationSchedule()">
+                                            <label class="form-check-label">یاددہانی چالو کریں</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">شام کی یاددہانی</label>
+                                        <input type="time" class="form-control" id="eveningTime" value="19:00">
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="checkbox" id="eveningEnabled"
+                                                onchange="updateNotificationSchedule()">
+                                            <label class="form-check-label">یاددہانی چالو کریں</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mb-4">
+                                        <button class="btn btn-primary" onclick="saveSettings()">
+                                            <i class="fas fa-save"></i> محفوظ کریں
+                                        </button>
+                                    </div>
+
+                                    <!-- Next Notification Info -->
+                                    <div id="nextNotificationInfo" class="alert alert-info d-none">
+                                        <h6><i class="fas fa-clock"></i> اگلی یاددہانی</h6>
+                                        <div id="nextNotificationTime"></div>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="text-center">
+                                        <h6>ایپ کی معلومات</h6>
+                                        <p class="small text-muted mb-3">
+                                            یہ ایپ حضرت محمد ﷺ کے 1500ویں سال کی مناسبت سے بنایا گیا ہے۔
+                                            <br>
+                                            <strong>Smart Notifications:</strong> آپ کے بند کیے گئے وقت پر بھی کام کرے
+                                            گی
+                                        </p>
+                                        <button class="btn btn-outline-danger" onclick="resetProgress()">
+                                            <i class="fas fa-trash"></i> تمام ڈیٹا صاف کریں
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hadith data from JSON
+        const ahadithData = {
+            "ahadith": [
+                { "id": 1, "hadith": "تم میں سے بہتر وہ ہے جو قرآن سیکھے اور سکھائے۔", "reference": "صحیح بخاری: کتاب فضائل القرآن، حدیث 5027" },
+                { "id": 2, "hadith": "اعمال کا دارومدار نیتوں پر ہے۔", "reference": "صحیح بخاری: کتاب بدء الوحی، حدیث 1 | صحیح مسلم: کتاب الامارة، حدیث 1907" },
+                { "id": 3, "hadith": "مومن کے لئے سب سے بہترین عمل نماز کو وقت پر پڑھنا ہے۔", "reference": "صحیح بخاری: کتاب مواقيت الصلاة، حدیث 527 | صحیح مسلم: کتاب الایمان، حدیث 85" },
+                { "id": 4, "hadith": "مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں۔", "reference": "صحیح بخاری: کتاب الایمان، حدیث 10 | صحیح مسلم: کتاب الایمان، حدیث 40" },
+                { "id": 5, "hadith": "بے شک اللہ تعالیٰ تمہارے جسموں اور شکلوں کو نہیں دیکھتا بلکہ تمہارے دلوں اور اعمال کو دیکھتا ہے۔", "reference": "صحیح مسلم: کتاب البر، حدیث 2564" },
+                { "id": 6, "hadith": "جو شخص اللہ اور آخرت کے دن پر ایمان رکھتا ہے وہ اچھی بات کہے یا خاموش رہے۔", "reference": "صحیح بخاری: کتاب الادب، حدیث 6018 | صحیح مسلم: کتاب الایمان، حدیث 47" },
+                { "id": 7, "hadith": "لوگوں میں بہترین وہ ہے جو دوسروں کو فائدہ پہنچائے۔", "reference": "صحیح بخاری: الادب المفرد، حدیث 606" },
+                { "id": 8, "hadith": "جس نے اپنے بھائی کی پردہ پوشی کی، اللہ قیامت کے دن اس کی پردہ پوشی کرے گا۔", "reference": "صحیح مسلم: کتاب البر، حدیث 2699" },
+                { "id": 9, "hadith": "مسکراہٹ اپنے بھائی کے لئے صدقہ ہے۔", "reference": "صحیح بخاری: الادب المفرد، حدیث 891 | صحیح مسلم: کتاب البر، حدیث 2626" },
+                { "id": 10, "hadith": "تم میں سے کوئی جنت میں داخل نہیں ہوگا جب تک وہ ایمان نہ لائے، اور ایمان والا نہیں ہوسکتا جب تک وہ اپنے بھائی کے لئے وہی پسند نہ کرے جو اپنے لئے کرتا ہے۔", "reference": "صحیح بخاری: کتاب الایمان، حدیث 13 | صحیح مسلم: کتاب الایمان، حدیث 45" },
+                { "id": 11, "hadith": "پاکیزگی نصف ایمان ہے۔", "reference": "صحیح مسلم: کتاب الطہارۃ، حدیث 223" },
+                { "id": 12, "hadith": "آسانی پیدا کرو، تنگی نہ کرو، خوشخبری دو اور نفرت نہ دلاؤ۔", "reference": "صحیح بخاری: کتاب العلم، حدیث 69 | صحیح مسلم: کتاب الجهاد، حدیث 1732" },
+                { "id": 13, "hadith": "دین آسان ہے۔", "reference": "صحیح بخاری: کتاب الایمان، حدیث 39" },
+                { "id": 14, "hadith": "جو رحم نہیں کرتا اس پر رحم نہیں کیا جاتا۔", "reference": "صحیح بخاری: کتاب الادب، حدیث 6013 | صحیح مسلم: کتاب الفضائل، حدیث 2319" },
+                { "id": 15, "hadith": "جو شخص کسی مصیبت زدہ کو تسلی دے اللہ اسے قیامت کے دن عزت عطا فرمائے گا۔", "reference": "صحیح مسلم: کتاب الجنائز، حدیث 927" },
+                { "id": 16, "hadith": "سب سے بہتر وہ ہے جو اپنے اہل و عیال کے ساتھ بہتر ہو۔", "reference": "صحیح بخاری: کتاب المناقب، حدیث 3559 | صحیح مسلم: کتاب الفضائل، حدیث 2326" },
+                { "id": 17, "hadith": "تم میں سب سے زیادہ اللہ کو محبوب وہ ہے جو اخلاق میں سب سے بہتر ہو۔", "reference": "صحیح بخاری: الادب المفرد، حدیث 273 | صحیح مسلم: کتاب الفضائل، حدیث 2321" },
+                { "id": 18, "hadith": "صدقہ گناہوں کو بجھاتا ہے جس طرح پانی آگ کو بجھاتا ہے۔", "reference": "صحیح بخاری: الادب المفرد، حدیث 1352 | صحیح مسلم: کتاب الزكاة، حدیث 2588" },
+                { "id": 19, "hadith": "جو شخص علم حاصل کرنے کے لئے راستہ اختیار کرتا ہے اللہ اس کے لئے جنت کا راستہ آسان کردیتا ہے۔", "reference": "صحیح بخاری: کتاب العلم، حدیث 71 | صحیح مسلم: کتاب الذکر، حدیث 2699" },
+                { "id": 20, "hadith": "اللہ کے نزدیک سب سے محبوب عمل وہ ہے جو مسلسل ہو چاہے تھوڑا ہی کیوں نہ ہو۔", "reference": "صحیح بخاری: کتاب الایمان، حدیث 6465 | صحیح مسلم: کتاب صلاة المسافرین، حدیث 782" },
+                { "id": 21, "hadith": "نماز جنت کی کنجی ہے۔", "reference": "صحیح مسلم: کتاب الطہارۃ، حدیث 224" },
+                { "id": 22, "hadith": "روزہ ڈھال ہے۔", "reference": "صحیح بخاری: کتاب الصوم، حدیث 1904 | صحیح مسلم: کتاب الصيام، حدیث 1151" },
+                { "id": 23, "hadith": "حج مبرور کا بدلہ جنت کے سوا کچھ نہیں۔", "reference": "صحیح بخاری: کتاب الحج، حدیث 1773 | صحیح مسلم: کتاب الحج، حدیث 1349" },
+                { "id": 24, "hadith": "اللہ تعالیٰ کے نزدیک سب سے محبوب جگہ مسجد ہے۔", "reference": "صحیح مسلم: کتاب المساجد، حدیث 671" },
+                { "id": 25, "hadith": "بے شک اللہ تعالیٰ پاک ہے اور پاکیزگی کو پسند کرتا ہے۔", "reference": "صحیح مسلم: کتاب الطہارۃ، حدیث 223" },
+                { "id": 26, "hadith": "بے شک ذکر کرنے والوں کے لئے فرشتے اپنے پروں کو بچھاتے ہیں۔", "reference": "صحیح مسلم: کتاب الذکر، حدیث 2700" },
+                { "id": 27, "hadith": "مسلمان کے لئے سب سے بڑی دولت قناعت ہے۔", "reference": "صحیح مسلم: کتاب الزھد، حدیث 1054" },
+                { "id": 28, "hadith": "مومن کے ایمان کا سب سے کامل درجہ یہ ہے کہ وہ اچھے اخلاق والا ہو۔", "reference": "صحیح بخاری: الادب المفرد، حدیث 273 | صحیح مسلم: کتاب الایمان، حدیث 79" },
+                { "id": 29, "hadith": "اللہ تعالیٰ اپنے بندے کی توبہ سے اس سے زیادہ خوش ہوتا ہے جتنا کوئی گم شدہ سواری والا اپنی سواری ملنے پر خوش ہوتا ہے۔", "reference": "صحیح بخاری: کتاب الدعوات، حدیث 6309 | صحیح مسلم: کتاب التوبة، حدیث 2744" },
+                { "id": 30, "hadith": "جس نے علم چھپایا، اللہ اسے قیامت کے دن آگ کی لگام پہنائے گا۔", "reference": "صحیح بخاری: کتاب العلم، حدیث 67" },
+                { "id": 31, "hadith": "جو اللہ کے لئے مسجد بنائے اللہ اس کے لئے جنت میں گھر بنائے گا۔", "reference": "صحیح بخاری: کتاب الصلوة، حدیث 450 | صحیح مسلم: کتاب المساجد، حدیث 533" },
+                { "id": 32, "hadith": "جو جھوٹ کو چھوڑ دے اللہ اس کے لئے جنت کے بیچ میں گھر بنائے گا۔", "reference": "صحیح مسلم: کتاب البر، حدیث 2609" },
+                { "id": 33, "hadith": "نماز دین کا ستون ہے۔", "reference": "صحیح مسلم: کتاب الطہارۃ، حدیث 223" },
+                { "id": 34, "hadith": "جو صلہ رحمی کرتا ہے اللہ اس کے رزق میں برکت دیتا ہے۔", "reference": "صحیح بخاری: کتاب الادب، حدیث 5986 | صحیح مسلم: کتاب البر، حدیث 2557" },
+                { "id": 35, "hadith": "تم میں سب سے قوی وہ ہے جو غصے کے وقت اپنے آپ پر قابو پائے۔", "reference": "صحیح بخاری: کتاب الادب، حدیث 6114 | صحیح مسلم: کتاب البر، حدیث 2609" },
+                { "id": 36, "hadith": "مسلمان مسلمان کا بھائی ہے، نہ اس پر ظلم کرتا ہے اور نہ اس کو رسوا کرتا ہے۔", "reference": "صحیح بخاری: کتاب المظالم، حدیث 2442 | صحیح مسلم: کتاب البر، حدیث 2564" },
+                { "id": 37, "hadith": "اللہ کے نزدیک سب سے زیادہ محبوب عمل خوشی پہنچانا ہے۔", "reference": "صحیح مسلم: کتاب البر، حدیث 2580" },
+                { "id": 38, "hadith": "جو چیز تمہیں شک میں ڈالے اسے چھوڑ دو اور جو شک نہ دلائے اسے اختیار کرو۔", "reference": "صحیح بخاری: الادب المفرد، حدیث 547 | صحیح مسلم: کتاب المساقاة، حدیث 1599" },
+                { "id": 39, "hadith": "دنیا مومن کے لئے قید خانہ اور کافر کے لئے جنت ہے۔", "reference": "صحیح مسلم: کتاب الزہد، حدیث 2956" },
+                { "id": 40, "hadith": "جو اللہ اور آخرت پر ایمان رکھتا ہے وہ اپنے پڑوسی کو تکلیف نہ دے۔", "reference": "صحیح بخاری: کتاب الادب، حدیث 6016 | صحیح مسلم: کتاب الایمان، حدیث 48" }
+            ]
+        };
+
+        // App state
+        let currentHadithIndex = 0;
+        let selectedSchedule = null;
+        let notificationIntervals = [];
+
+        let userData = {
+            totalRead: 0,
+            totalPracticed: 0,
+            currentStreak: 0,
+            lastReadDate: null,
+            lastPracticedDate: null,
+            practicedHadiths: [],
+            readHadiths: [],
+            recentHadiths: [],
+            schedule: null,
+            scheduleStartDate: null,
+            settings: {
+                morningTime: '07:00',
+                eveningTime: '19:00',
+                morningEnabled: false,
+                eveningEnabled: false
+            },
+            notifications: {
+                lastMorningNotification: null,
+                lastEveningNotification: null,
+                scheduledNotifications: []
+            }
+        };
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserData();
+            displayCurrentDate();
+            checkUserSchedule();
+            initializeNotifications();
+            updateNotificationStatus();
+            startNotificationScheduler();
+        });
+
+        // Load user data
+        function loadUserData() {
+            const saved = JSON.parse(localStorage.getItem('hadithAppData') || '{}');
+            userData = { ...userData, ...saved };
+
+            // Ensure notifications object exists
+            if (!userData.notifications) {
+                userData.notifications = {
+                    lastMorningNotification: null,
+                    lastEveningNotification: null,
+                    scheduledNotifications: []
+                };
+            }
+        }
+
+        // Save user data
+        function saveUserData() {
+            localStorage.setItem('hadithAppData', JSON.stringify(userData));
+        }
+
+        // Initialize notifications
+        function initializeNotifications() {
+            if ('Notification' in window) {
+                updateNotificationStatus();
+            } else {
+                document.getElementById('notificationStatus').innerHTML = `
+                    <div class="text-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        آپ کا browser notifications کو support نہیں کرتا
+                    </div>
+                `;
+            }
+        }
+
+        // Update notification status display
+        function updateNotificationStatus() {
+            const statusDiv = document.getElementById('notificationStatus');
+            const statusText = document.getElementById('notificationStatusText');
+            const requestBtn = document.getElementById('requestNotificationBtn');
+
+            if (!('Notification' in window)) {
+                statusDiv.className = 'notification-status disabled';
+                statusText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Browser notifications کو support نہیں کرتا';
+                requestBtn.style.display = 'none';
+                return;
+            }
+
+            switch (Notification.permission) {
+                case 'granted':
+                    statusDiv.className = 'notification-status enabled';
+                    statusText.innerHTML = '<i class="fas fa-bell"></i> یاددہانی کی اجازت موجود ہے';
+                    requestBtn.style.display = 'none';
+                    updateNextNotificationInfo();
+                    break;
+                case 'denied':
+                    statusDiv.className = 'notification-status disabled';
+                    statusText.innerHTML = '<i class="fas fa-bell-slash"></i> یاددہانی مسترد کر دی گئی ہے';
+                    requestBtn.style.display = 'none';
+                    break;
+                default:
+                    statusDiv.className = 'notification-status';
+                    statusText.innerHTML = '<i class="fas fa-bell-slash"></i> یاددہانی کی اجازت نہیں ملی';
+                    requestBtn.style.display = 'block';
+            }
+        }
+
+        // Request notification permission
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    updateNotificationStatus();
+                    if (permission === 'granted') {
+                        showSuccessMessage('یاددہانی کی اجازت مل گئی! اب آپ کو وقت پر notifications آئیں گی۔');
+                        updateNotificationSchedule();
+                    } else {
+                        showInfoMessage('یاددہانی کی اجازت نہیں ملی۔ Browser settings سے اجازت دے سکتے ہیں۔');
+                    }
+                });
+            }
+        }
+
+        // Start notification scheduler - Smart background monitoring
+        function startNotificationScheduler() {
+            // Clear any existing intervals
+            notificationIntervals.forEach(interval => clearInterval(interval));
+            notificationIntervals = [];
+
+            // Check every minute for scheduled notifications
+            const mainInterval = setInterval(() => {
+                checkScheduledNotifications();
+            }, 60000); // Check every minute
+
+            notificationIntervals.push(mainInterval);
+
+            // Also check immediately
+            checkScheduledNotifications();
+        }
+
+        // Check for scheduled notifications
+        function checkScheduledNotifications() {
+            if (Notification.permission !== 'granted') return;
+
+            const now = new Date();
+            const currentTime = now.getHours().toString().padStart(2, '0') + ':' +
+                now.getMinutes().toString().padStart(2, '0');
+            const today = now.toDateString();
+
+            // Check morning notification
+            if (userData.settings.morningEnabled &&
+                currentTime === userData.settings.morningTime &&
+                userData.notifications.lastMorningNotification !== today) {
+
+                sendNotification('morning');
+                userData.notifications.lastMorningNotification = today;
+                saveUserData();
+            }
+
+            // Check evening notification
+            if (userData.settings.eveningEnabled &&
+                currentTime === userData.settings.eveningTime &&
+                userData.notifications.lastEveningNotification !== today) {
+
+                sendNotification('evening');
+                userData.notifications.lastEveningNotification = today;
+                saveUserData();
+            }
+
+            // Update next notification info if settings page is visible
+            if (!document.getElementById('settings-content').classList.contains('d-none')) {
+                updateNextNotificationInfo();
+            }
+        }
+
+        // Send notification
+        function sendNotification(type) {
+            if (Notification.permission !== 'granted') return;
+
+            const messages = {
+                morning: {
+                    title: 'صبح کی یاددہانی - حدیث مبارک',
+                    body: 'السلام علیکم! اپنے دن کی شروعات بابرکت حدیث کے ساتھ کریں 📖',
+                    icon: '🌅'
+                },
+                evening: {
+                    title: 'شام کی یاددہانی - حدیث مبارک',
+                    body: 'آج کی حدیث پر غور کریں اور عمل کا فیصلہ کریں 🌙',
+                    icon: '🌙'
+                }
+            };
+
+            const message = messages[type];
+
+            // Create notification
+            const notification = new Notification(message.title, {
+                body: message.body,
+                icon: createNotificationIcon(message.icon),
+                badge: createNotificationIcon('📖'),
+                tag: `hadith-${type}`,
+                renotify: true,
+                requireInteraction: false,
+                silent: false
+            });
+
+            // Handle notification click
+            notification.onclick = function () {
+                window.focus();
+                notification.close();
+                // Show hadith section if app is open
+                if (!document.getElementById('main-content').classList.contains('d-none')) {
+                    showSection('hadith');
+                }
+            };
+
+            // Auto close after 10 seconds
+            setTimeout(() => {
+                notification.close();
+            }, 10000);
+
+            // Log notification
+            console.log(`${type} notification sent at ${new Date().toLocaleTimeString()}`);
+        }
+
+        // Create notification icon (data URL)
+        function createNotificationIcon(emoji) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            ctx.fillStyle = '#2D5016';
+            ctx.fillRect(0, 0, 128, 128);
+
+            // Emoji
+            ctx.font = '64px serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'white';
+            ctx.fillText(emoji, 64, 64);
+
+            return canvas.toDataURL();
+        }
+
+        // Update notification schedule
+        function updateNotificationSchedule() {
+            // Restart the scheduler with new settings
+            startNotificationScheduler();
+            updateNextNotificationInfo();
+            saveUserData();
+        }
+
+        // Update next notification info display
+        function updateNextNotificationInfo() {
+            const infoDiv = document.getElementById('nextNotificationInfo');
+            const timeDiv = document.getElementById('nextNotificationTime');
+
+            if (!userData.settings.morningEnabled && !userData.settings.eveningEnabled) {
+                infoDiv.classList.add('d-none');
+                return;
+            }
+
+            const now = new Date();
+            let nextNotifications = [];
+
+            // Add morning notification if enabled
+            if (userData.settings.morningEnabled) {
+                const morningTime = userData.settings.morningTime.split(':');
+                const morningDate = new Date();
+                morningDate.setHours(parseInt(morningTime[0]), parseInt(morningTime[1]), 0, 0);
+
+                // If morning time has passed today, schedule for tomorrow
+                if (morningDate <= now) {
+                    morningDate.setDate(morningDate.getDate() + 1);
+                }
+
+                nextNotifications.push({
+                    type: 'صبح',
+                    time: morningDate
+                });
+            }
+
+            // Add evening notification if enabled
+            if (userData.settings.eveningEnabled) {
+                const eveningTime = userData.settings.eveningTime.split(':');
+                const eveningDate = new Date();
+                eveningDate.setHours(parseInt(eveningTime[0]), parseInt(eveningTime[1]), 0, 0);
+
+                // If evening time has passed today, schedule for tomorrow
+                if (eveningDate <= now) {
+                    eveningDate.setDate(eveningDate.getDate() + 1);
+                }
+
+                nextNotifications.push({
+                    type: 'شام',
+                    time: eveningDate
+                });
+            }
+
+            if (nextNotifications.length > 0) {
+                // Sort by time
+                nextNotifications.sort((a, b) => a.time - b.time);
+
+                const next = nextNotifications[0];
+                const timeUntil = next.time - now;
+                const hoursUntil = Math.floor(timeUntil / (1000 * 60 * 60));
+                const minutesUntil = Math.floor((timeUntil % (1000 * 60 * 60)) / (1000 * 60));
+
+                timeDiv.innerHTML = `
+                    <strong>${next.type} کی یاددہانی:</strong> ${next.time.toLocaleTimeString('ur-PK', { hour: '2-digit', minute: '2-digit' })}
+                    <br>
+                    <small class="text-muted">
+                        ${hoursUntil > 0 ? `${hoursUntil} گھنٹے ` : ''}${minutesUntil} منٹ باقی
+                    </small>
+                `;
+
+                infoDiv.classList.remove('d-none');
+            } else {
+                infoDiv.classList.add('d-none');
+            }
+        }
+
+        // Check if user has selected schedule
+        function checkUserSchedule() {
+            if (userData.schedule) {
+                document.getElementById('schedule-selection').classList.add('d-none');
+                document.getElementById('main-content').classList.remove('d-none');
+                loadTodaysHadith();
+                updateDashboard();
+                loadSettings();
+            } else {
+                document.getElementById('schedule-selection').classList.remove('d-none');
+                document.getElementById('main-content').classList.add('d-none');
+            }
+        }
+
+        // Select schedule
+        function selectSchedule(schedule) {
+            selectedSchedule = schedule;
+
+            // Remove selected class from all options
+            document.querySelectorAll('.schedule-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Add selected class to clicked option
+            document.querySelector(`[data-schedule="${schedule}"]`).classList.add('selected');
+
+            // Enable start button
+            document.getElementById('start-schedule').disabled = false;
+        }
+
+        // Start selected schedule
+        function startSelectedSchedule() {
+            if (selectedSchedule) {
+                userData.schedule = selectedSchedule;
+                userData.scheduleStartDate = new Date().toISOString();
+                saveUserData();
+
+                document.getElementById('schedule-selection').classList.add('d-none');
+                document.getElementById('main-content').classList.remove('d-none');
+
+                loadTodaysHadith();
+                updateDashboard();
+                loadSettings();
+            }
+        }
+
+        // Display current date
+        function displayCurrentDate() {
+            const today = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                timeZone: 'Asia/Karachi'
+            };
+            document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+        }
+
+        // Load today's hadith (based on schedule)
+        function loadTodaysHadith() {
+            const today = new Date();
+            let hadithIndex;
+
+            switch (userData.schedule) {
+                case 'today':
+                    // For today schedule, use current day of year
+                    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+                    hadithIndex = (dayOfYear - 1) % ahadithData.ahadith.length;
+                    break;
+                case 'week':
+                    // For weekly schedule, use day of week
+                    const dayOfWeek = today.getDay();
+                    hadithIndex = dayOfWeek % ahadithData.ahadith.length;
+                    break;
+                case 'month':
+                    // For monthly schedule, use day of month
+                    const dayOfMonth = today.getDate();
+                    hadithIndex = (dayOfMonth - 1) % ahadithData.ahadith.length;
+                    break;
+                default:
+                    hadithIndex = 0;
+            }
+
+            currentHadithIndex = hadithIndex;
+            displayHadith(currentHadithIndex);
+
+            // Mark as read if not already read today
+            const todayString = today.toDateString();
+            if (userData.lastReadDate !== todayString) {
+                userData.totalRead++;
+                userData.lastReadDate = todayString;
+                if (!userData.readHadiths.includes(currentHadithIndex)) {
+                    userData.readHadiths.push(currentHadithIndex);
+                }
+                // Add to recent hadiths
+                addToRecentHadiths(currentHadithIndex);
+                saveUserData();
+                updateDashboard();
+            }
+        }
+
+        // Add hadith to recent list
+        function addToRecentHadiths(hadithIndex) {
+            const hadith = ahadithData.ahadith[hadithIndex];
+            const recentItem = {
+                id: hadith.id,
+                hadith: hadith.hadith.substring(0, 50) + '...',
+                date: new Date().toLocaleDateString('ur-PK'),
+                practiced: userData.practicedHadiths.includes(hadithIndex)
+            };
+
+            // Add to beginning and limit to 5 items
+            userData.recentHadiths.unshift(recentItem);
+            userData.recentHadiths = userData.recentHadiths.slice(0, 5);
+        }
+
+        // Update recent hadiths display
+        function updateRecentHadiths() {
+            const container = document.getElementById('recentHadiths');
+            if (userData.recentHadiths.length === 0) {
+                container.innerHTML = '<p class="text-muted small">ابھی کوئی حدیث نہیں پڑھی</p>';
+                return;
+            }
+
+            container.innerHTML = userData.recentHadiths.map(item => `
+                <div class="border rounded p-2 mb-2 small">
+                    <div class="fw-bold">${item.hadith}</div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <span class="text-muted">${item.date}</span>
+                        <span class="badge ${item.practiced ? 'bg-success' : 'bg-secondary'}">
+                            ${item.practiced ? 'عمل کیا' : 'پڑھا'}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Display hadith
+        function displayHadith(index) {
+            const hadith = ahadithData.ahadith[index];
+            document.getElementById('hadithText').textContent = hadith.hadith;
+            document.getElementById('hadithReference').textContent = hadith.reference;
+
+            // Show/hide practice question based on whether already answered
+            const practiceQuestion = document.getElementById('practice-question');
+            if (userData.practicedHadiths.includes(index)) {
+                practiceQuestion.style.display = 'none';
+            } else {
+                practiceQuestion.style.display = 'block';
+            }
+        }
+
+        // Get random hadith
+        function getRandomHadith() {
+            currentHadithIndex = Math.floor(Math.random() * ahadithData.ahadith.length);
+            displayHadith(currentHadithIndex);
+
+            // Mark as read if not already
+            if (!userData.readHadiths.includes(currentHadithIndex)) {
+                userData.readHadiths.push(currentHadithIndex);
+                userData.totalRead++;
+                addToRecentHadiths(currentHadithIndex);
+                saveUserData();
+                updateDashboard();
+            }
+        }
+
+        // Mark hadith as practiced
+        function markAsPracticed(practiced) {
+            const hadithAlreadyAnswered = userData.practicedHadiths.includes(currentHadithIndex);
+
+            if (!hadithAlreadyAnswered) {
+                if (practiced) {
+                    userData.practicedHadiths.push(currentHadithIndex);
+                    userData.totalPracticed++;
+                    updateStreak();
+                    showSuccessMessage('ماشاء اللہ! حدیث پر عمل کا اجر اللہ آپ کو دے!');
+                } else {
+                    showInfoMessage('کوئی بات نہیں، اگلی بار ضرور کوشش کریں۔ اللہ آپ کو توفیق دے!');
+                }
+
+                // Update recent hadiths to reflect practice status
+                updateRecentHadithPracticeStatus(currentHadithIndex, practiced);
+
+                saveUserData();
+                updateDashboard();
+                document.getElementById('practice-question').style.display = 'none';
+            }
+        }
+
+        // Update recent hadith practice status
+        function updateRecentHadithPracticeStatus(hadithIndex, practiced) {
+            const hadithId = ahadithData.ahadith[hadithIndex].id;
+            const recentItem = userData.recentHadiths.find(item => item.id === hadithId);
+            if (recentItem) {
+                recentItem.practiced = practiced;
+            }
+        }
+
+        // Update streak
+        function updateStreak() {
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+            if (userData.lastPracticedDate === yesterday || userData.lastPracticedDate === today) {
+                if (userData.lastPracticedDate !== today) {
+                    userData.currentStreak++;
+                }
+            } else if (userData.lastPracticedDate !== today) {
+                userData.currentStreak = 1;
+            }
+
+            userData.lastPracticedDate = today;
+        }
+
+        // Show success message
+        function showSuccessMessage(message) {
+            const messageEl = document.createElement('div');
+            messageEl.className = 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3';
+            messageEl.style.zIndex = '9999';
+            messageEl.style.maxWidth = '90%';
+            messageEl.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(messageEl);
+
+            setTimeout(() => {
+                messageEl.remove();
+            }, 4000);
+        }
+
+        // Show info message
+        function showInfoMessage(message) {
+            const messageEl = document.createElement('div');
+            messageEl.className = 'alert alert-info position-fixed top-0 start-50 translate-middle-x mt-3';
+            messageEl.style.zIndex = '9999';
+            messageEl.style.maxWidth = '90%';
+            messageEl.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            document.body.appendChild(messageEl);
+
+            setTimeout(() => {
+                messageEl.remove();
+            }, 4000);
+        }
+
+        // Show section navigation
+        function showSection(section) {
+            // Update nav active state
+            document.querySelectorAll('#mainNav .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.getElementById(`${section}-nav`).classList.add('active');
+
+            // Show/hide content
+            if (section === 'hadith') {
+                document.getElementById('dashboard-content').classList.add('d-none');
+                document.getElementById('settings-content').classList.add('d-none');
+            } else if (section === 'dashboard') {
+                document.getElementById('dashboard-content').classList.remove('d-none');
+                document.getElementById('settings-content').classList.add('d-none');
+                updateRecentHadiths(); // Update recent hadiths when showing dashboard
+            } else if (section === 'settings') {
+                document.getElementById('dashboard-content').classList.add('d-none');
+                document.getElementById('settings-content').classList.remove('d-none');
+                updateNotificationStatus(); // Update status when showing settings
+                updateNextNotificationInfo(); // Update next notification info
+            }
+        }
+
+        // Update dashboard
+        function updateDashboard() {
+            document.getElementById('totalRead').textContent = userData.totalRead;
+            document.getElementById('totalPracticed').textContent = userData.totalPracticed;
+            document.getElementById('currentStreak').textContent = userData.currentStreak;
+
+            // Weekly progress
+            const weeklyGoal = 7;
+            const weeklyPracticed = Math.min(userData.currentStreak, weeklyGoal);
+            document.getElementById('weeklyProgress').textContent = `${weeklyPracticed}/${weeklyGoal}`;
+            document.getElementById('weeklyProgressBar').style.width = `${(weeklyPracticed / weeklyGoal) * 100}%`;
+
+            // Monthly progress
+            const monthlyGoal = 30;
+            const monthlyPracticed = Math.min(userData.totalPracticed, monthlyGoal);
+            document.getElementById('monthlyProgress').textContent = `${monthlyPracticed}/${monthlyGoal}`;
+            document.getElementById('monthlyProgressBar').style.width = `${(monthlyPracticed / monthlyGoal) * 100}%`;
+
+            // Update recent hadiths
+            updateRecentHadiths();
+        }
+
+        // Load settings
+        function loadSettings() {
+            document.getElementById('morningTime').value = userData.settings.morningTime;
+            document.getElementById('eveningTime').value = userData.settings.eveningTime;
+            document.getElementById('morningEnabled').checked = userData.settings.morningEnabled;
+            document.getElementById('eveningEnabled').checked = userData.settings.eveningEnabled;
+            document.getElementById('schedule-change').value = userData.schedule || 'today';
+
+            // Update notification schedule after loading settings
+            updateNotificationSchedule();
+        }
+
+        // Save settings
+        function saveSettings() {
+            userData.settings.morningTime = document.getElementById('morningTime').value;
+            userData.settings.eveningTime = document.getElementById('eveningTime').value;
+            userData.settings.morningEnabled = document.getElementById('morningEnabled').checked;
+            userData.settings.eveningEnabled = document.getElementById('eveningEnabled').checked;
+
+            const newSchedule = document.getElementById('schedule-change').value;
+            if (newSchedule !== userData.schedule) {
+                userData.schedule = newSchedule;
+                userData.scheduleStartDate = new Date().toISOString();
+                loadTodaysHadith();
+                showSuccessMessage('شیڈول تبدیل ہو گیا اور نئی حدیث لوڈ ہو گئی!');
+            } else {
+                showSuccessMessage('ترتیبات محفوظ ہو گئیں!');
+            }
+
+            // Update notification schedule
+            updateNotificationSchedule();
+            saveUserData();
+        }
+
+        // Reset progress
+        function resetProgress() {
+            if (confirm('کیا آپ واقعی تمام ڈیٹا صاف کرنا چاہتے ہیں؟ یہ عمل واپس نہیں کیا جا سکتا۔')) {
+                // Clear intervals
+                notificationIntervals.forEach(interval => clearInterval(interval));
+                notificationIntervals = [];
+
+                userData = {
+                    totalRead: 0,
+                    totalPracticed: 0,
+                    currentStreak: 0,
+                    lastReadDate: null,
+                    lastPracticedDate: null,
+                    practicedHadiths: [],
+                    readHadiths: [],
+                    recentHadiths: [],
+                    schedule: null,
+                    scheduleStartDate: null,
+                    settings: {
+                        morningTime: '07:00',
+                        eveningTime: '19:00',
+                        morningEnabled: false,
+                        eveningEnabled: false
+                    },
+                    notifications: {
+                        lastMorningNotification: null,
+                        lastEveningNotification: null,
+                        scheduledNotifications: []
+                    }
+                };
+                localStorage.removeItem('hadithAppData');
+                showSuccessMessage('تمام ڈیٹا صاف ہو گیا!');
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        }
+
+        // Add touch gestures for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 100;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next hadith
+                    getRandomHadith();
+                } else {
+                    // Swipe right - could add previous hadith functionality
+                    // For now, just get random hadith
+                    getRandomHadith();
+                }
+            }
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function (e) {
+            // Only work if not in input fields
+            if (e.target.tagName.toLowerCase() !== 'input' && e.target.tagName.toLowerCase() !== 'textarea') {
+                switch (e.key) {
+                    case 'n': // Next hadith
+                    case 'N':
+                        getRandomHadith();
+                        break;
+                    case 'y': // Yes to practice
+                    case 'Y':
+                        if (!userData.practicedHadiths.includes(currentHadithIndex)) {
+                            markAsPracticed(true);
+                        }
+                        break;
+                    case ' ': // Space for next hadith
+                        e.preventDefault();
+                        getRandomHadith();
+                        break;
+                }
+            }
+        });
+
+        // Page visibility API - Handle app coming back to foreground
+        document.addEventListener('visibilitychange', function () {
+            if (!document.hidden) {
+                // App came back to foreground, check for missed notifications
+                checkScheduledNotifications();
+                updateNextNotificationInfo();
+            }
+        });
+
+        // Handle page beforeunload - Save state before closing
+        window.addEventListener('beforeunload', function () {
+            saveUserData();
+        });
+
+        // Service Worker Registration for background notifications (if supported)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                // Register service worker for background functionality
+                navigator.serviceWorker.register('/sw.js').then(function (registration) {
+                    console.log('ServiceWorker registration successful');
+                }, function (err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                }).catch(function (error) {
+                    // Service worker file doesn't exist, continue without it
+                    console.log('Service worker not available, using foreground notifications only');
+                });
+            });
+        }
+
+        // Advanced notification scheduling with localStorage backup
+        function scheduleNotificationsInStorage() {
+            if (Notification.permission !== 'granted') return;
+
+            const now = new Date();
+            const scheduledNotifications = [];
+
+            // Schedule next 7 days of notifications
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(now);
+                date.setDate(date.getDate() + i);
+
+                if (userData.settings.morningEnabled) {
+                    const [hours, minutes] = userData.settings.morningTime.split(':');
+                    const morningTime = new Date(date);
+                    morningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+                    if (morningTime > now) {
+                        scheduledNotifications.push({
+                            type: 'morning',
+                            time: morningTime.getTime(),
+                            sent: false
+                        });
+                    }
+                }
+
+                if (userData.settings.eveningEnabled) {
+                    const [hours, minutes] = userData.settings.eveningTime.split(':');
+                    const eveningTime = new Date(date);
+                    eveningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+                    if (eveningTime > now) {
+                        scheduledNotifications.push({
+                            type: 'evening',
+                            time: eveningTime.getTime(),
+                            sent: false
+                        });
+                    }
+                }
+            }
+
+            userData.notifications.scheduledNotifications = scheduledNotifications;
+            saveUserData();
+        }
+
+        // Check and process scheduled notifications from storage
+        function processStoredNotifications() {
+            const now = new Date().getTime();
+            let hasUpdates = false;
+
+            userData.notifications.scheduledNotifications.forEach(notification => {
+                if (!notification.sent && now >= notification.time) {
+                    sendNotification(notification.type);
+                    notification.sent = true;
+                    hasUpdates = true;
+                }
+            });
+
+            if (hasUpdates) {
+                // Clean up old notifications (older than 24 hours)
+                const oneDayAgo = now - (24 * 60 * 60 * 1000);
+                userData.notifications.scheduledNotifications = userData.notifications.scheduledNotifications.filter(
+                    n => n.time > oneDayAgo
+                );
+                saveUserData();
+            }
+        }
+
+        // Enhanced notification scheduler
+        function enhancedNotificationScheduler() {
+            // Check immediate notifications
+            checkScheduledNotifications();
+
+            // Process stored notifications
+            processStoredNotifications();
+
+            // Schedule future notifications
+            scheduleNotificationsInStorage();
+        }
+
+        // Initialize enhanced notifications
+        function initializeEnhancedNotifications() {
+            enhancedNotificationScheduler();
+
+            // Set up periodic checks (every 5 minutes)
+            const enhancedInterval = setInterval(() => {
+                enhancedNotificationScheduler();
+            }, 5 * 60 * 1000); // 5 minutes
+
+            notificationIntervals.push(enhancedInterval);
+        }
+
+        // Override the original notification scheduler
+        function startNotificationScheduler() {
+            // Clear any existing intervals
+            notificationIntervals.forEach(interval => clearInterval(interval));
+            notificationIntervals = [];
+
+            // Start enhanced notification system
+            initializeEnhancedNotifications();
+        }
+
+    </script>
+</body>
+
+</html>

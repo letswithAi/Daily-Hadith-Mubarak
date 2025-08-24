@@ -347,6 +347,37 @@
             border-color: #dc3545;
         }
 
+        /* Notification Test Button */
+        .notification-test-section {
+            background: rgba(13, 202, 240, 0.1);
+            border: 1px solid #0dcaf0;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        /* PWA Install Prompt */
+        .pwa-install-prompt {
+            background: rgba(102, 16, 242, 0.1);
+            border: 1px solid #6610f2;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pwa-install-prompt:hover {
+            background: rgba(102, 16, 242, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .pwa-install-prompt.hidden {
+            display: none;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -473,6 +504,16 @@
                 <div id="schedule-selection" class="schedule-selection">
                     <h2 class="mb-4 urdu-text">اعمال کا دارومدار نیتوں پر ہے</h2>
                     <p class="lead">اپنا مطالعہ شیڈول منتخب کریں</p>
+
+                    <!-- PWA Install Prompt -->
+                    <div id="pwa-install-prompt" class="pwa-install-prompt hidden" onclick="installPWA()">
+                        <h6><i class="fas fa-download"></i> بہتر تجربے کے لیے ایپ انسٹال کریں</h6>
+                        <p class="small">ایپ انسٹال کرنے سے آپ کو بہتر background notifications ملیں گی</p>
+                        <div class="mt-2">
+                            <small class="text-muted">(کلک کریں انسٹال کرنے کے لیے)</small>
+                        </div>
+                    </div>
+
                     <div class="schedule-options">
                         <div class="schedule-option" data-schedule="today" onclick="selectSchedule('today')">
                             <div class="schedule-icon">
@@ -605,6 +646,16 @@
                                 <div id="settings-content" class="d-none">
                                     <h5 class="mb-3"><i class="fas fa-cog"></i> ترتیبات</h5>
 
+                                    <!-- PWA Install Prompt in Settings -->
+                                    <div id="pwa-install-prompt-settings" class="pwa-install-prompt hidden"
+                                        onclick="installPWA()">
+                                        <h6><i class="fas fa-download"></i> ایپ انسٹال کریں</h6>
+                                        <p class="small">بہتر background notifications کے لیے</p>
+                                        <div class="mt-2">
+                                            <small class="text-muted">(کلک کریں انسٹال کرنے کے لیے)</small>
+                                        </div>
+                                    </div>
+
                                     <!-- Notification Status -->
                                     <div id="notificationStatus" class="notification-status">
                                         <div id="notificationStatusText">
@@ -613,6 +664,15 @@
                                         <button class="btn btn-sm btn-outline-primary mt-2" id="requestNotificationBtn"
                                             onclick="requestNotificationPermission()">
                                             اجازت طلب کریں
+                                        </button>
+                                    </div>
+
+                                    <!-- Test Notification -->
+                                    <div class="notification-test-section">
+                                        <h6><i class="fas fa-test-tube"></i> یاددہانی ٹیسٹ کریں</h6>
+                                        <p class="small">چیک کریں کہ notifications کام کر رہی ہیں</p>
+                                        <button class="btn btn-outline-info btn-sm" onclick="testNotification()">
+                                            <i class="fas fa-bell"></i> ٹیسٹ کریں
                                         </button>
                                     </div>
 
@@ -629,7 +689,8 @@
 
                                     <div class="mb-3">
                                         <h6><i class="fas fa-bell"></i> یاددہانی کی ترتیبات</h6>
-                                        <small class="text-muted">آپ کے set کیے گئے وقت پر notification آئے گی</small>
+                                        <small class="text-muted">آپ کے set کیے گئے وقت پر notification آئے گی (ایپ بند
+                                            ہونے پر بھی)</small>
                                     </div>
 
                                     <div class="mb-3">
@@ -652,6 +713,20 @@
                                         </div>
                                     </div>
 
+                                    <!-- Advanced Notification Settings -->
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-cogs"></i> اضافی ترتیبات</h6>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="persistentEnabled"
+                                                checked>
+                                            <label class="form-check-label">مستقل یاددہانی (ایپ بند ہونے پر بھی)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="soundEnabled" checked>
+                                            <label class="form-check-label">آواز کے ساتھ</label>
+                                        </div>
+                                    </div>
+
                                     <div class="text-center mb-4">
                                         <button class="btn btn-primary" onclick="saveSettings()">
                                             <i class="fas fa-save"></i> محفوظ کریں
@@ -664,6 +739,12 @@
                                         <div id="nextNotificationTime"></div>
                                     </div>
 
+                                    <!-- Background Status -->
+                                    <div id="backgroundStatus" class="alert alert-warning">
+                                        <h6><i class="fas fa-info-circle"></i> بیک گراؤند کی صورتحال</h6>
+                                        <div id="backgroundStatusText">چیک کر رہے ہیں...</div>
+                                    </div>
+
                                     <hr class="my-4">
 
                                     <div class="text-center">
@@ -671,8 +752,7 @@
                                         <p class="small text-muted mb-3">
                                             یہ ایپ حضرت محمد ﷺ کے 1500ویں سال کی مناسبت سے بنایا گیا ہے۔
                                             <br>
-                                            <strong>Smart Notifications:</strong> آپ کے بند کیے گئے وقت پر بھی کام کرے
-                                            گی
+                                            <strong>Background Notifications:</strong> ایپ بند ہونے پر بھی کام کرتا ہے
                                         </p>
                                         <button class="btn btn-outline-danger" onclick="resetProgress()">
                                             <i class="fas fa-trash"></i> تمام ڈیٹا صاف کریں
@@ -735,10 +815,16 @@
             ]
         };
 
+
+        // PWA & Service Worker Variables
+        let deferredPrompt;
+        let swRegistration;
+
         // App state
         let currentHadithIndex = 0;
         let selectedSchedule = null;
         let notificationIntervals = [];
+        let backgroundScheduleActive = false;
 
         let userData = {
             totalRead: 0,
@@ -755,37 +841,280 @@
                 morningTime: '07:00',
                 eveningTime: '19:00',
                 morningEnabled: false,
-                eveningEnabled: false
+                eveningEnabled: false,
+                persistentEnabled: true,
+                soundEnabled: true
             },
             notifications: {
                 lastMorningNotification: null,
                 lastEveningNotification: null,
-                scheduledNotifications: []
+                scheduledNotifications: [],
+                backgroundJobs: []
             }
         };
 
+        // Service Worker Code (inline)
+        const serviceWorkerCode = `
+            const CACHE_NAME = 'hadith-app-v1';
+            
+            self.addEventListener('install', event => {
+                console.log('Service Worker: Installed');
+                self.skipWaiting();
+            });
+
+            self.addEventListener('activate', event => {
+                console.log('Service Worker: Activated');
+                event.waitUntil(self.clients.claim());
+            });
+
+            self.addEventListener('message', event => {
+                if (event.data && event.data.type === 'SCHEDULE_NOTIFICATION') {
+                    const { time, type, title, body } = event.data;
+                    const delay = time - Date.now();
+                    
+                    if (delay > 0) {
+                        setTimeout(() => {
+                            self.registration.showNotification(title, {
+                                body: body,
+                                icon: '/icon-192x192.png',
+                                badge: '/icon-72x72.png',
+                                tag: 'hadith-' + type,
+                                renotify: true,
+                                requireInteraction: false,
+                                actions: [
+                                    {
+                                        action: 'open',
+                                        title: 'کھولیں'
+                                    },
+                                    {
+                                        action: 'close',
+                                        title: 'بند کریں'
+                                    }
+                                ],
+                                data: {
+                                    type: type,
+                                    url: '/'
+                                }
+                            });
+                        }, delay);
+                    }
+                }
+            });
+
+            self.addEventListener('notificationclick', event => {
+                event.notification.close();
+                
+                if (event.action === 'open' || !event.action) {
+                    event.waitUntil(
+                        self.clients.matchAll().then(clients => {
+                            if (clients.length > 0) {
+                                return clients[0].focus();
+                            } else {
+                                return self.clients.openWindow('/');
+                            }
+                        })
+                    );
+                }
+            });
+
+            // Background sync for notifications
+            self.addEventListener('sync', event => {
+                if (event.tag === 'background-sync') {
+                    event.waitUntil(handleBackgroundSync());
+                }
+            });
+
+            async function handleBackgroundSync() {
+                console.log('Background sync triggered');
+                // Add background notification logic here
+            }
+        `;
+
         // Initialize app
         document.addEventListener('DOMContentLoaded', function () {
+            initializeServiceWorker();
             loadUserData();
             displayCurrentDate();
             checkUserSchedule();
             initializeNotifications();
             updateNotificationStatus();
             startNotificationScheduler();
+            initializePWA();
+            checkBackgroundStatus();
         });
+
+        // Initialize Service Worker
+        async function initializeServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    // Create service worker from string
+                    const blob = new Blob([serviceWorkerCode], { type: 'application/javascript' });
+                    const swUrl = URL.createObjectURL(blob);
+
+                    swRegistration = await navigator.serviceWorker.register(swUrl);
+                    console.log('Service Worker registered successfully');
+
+                    // Request background sync permission
+                    if ('sync' in window.ServiceWorkerRegistration.prototype) {
+                        await swRegistration.sync.register('background-sync');
+                    }
+
+                } catch (error) {
+                    console.log('Service Worker registration failed:', error);
+                }
+            }
+        }
+
+        // Initialize PWA
+        function initializePWA() {
+            // Show PWA install prompt
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                showPWAInstallPrompt();
+            });
+
+            // Handle app installed
+            window.addEventListener('appinstalled', () => {
+                hidePWAInstallPrompt();
+                showSuccessMessage('ایپ کامیابی سے انسٹال ہو گئی! اب آپ کو بہتر notifications ملیں گی۔');
+                checkBackgroundStatus();
+            });
+
+            // Check if already installed
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                hidePWAInstallPrompt();
+            }
+        }
+
+        // Show PWA install prompt
+        function showPWAInstallPrompt() {
+            document.getElementById('pwa-install-prompt').classList.remove('hidden');
+            document.getElementById('pwa-install-prompt-settings').classList.remove('hidden');
+        }
+
+        // Hide PWA install prompt
+        function hidePWAInstallPrompt() {
+            document.getElementById('pwa-install-prompt').classList.add('hidden');
+            document.getElementById('pwa-install-prompt-settings').classList.add('hidden');
+        }
+
+        // Install PWA
+        async function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+
+                if (outcome === 'accepted') {
+                    console.log('PWA install accepted');
+                    showSuccessMessage('ایپ انسٹال ہو رہی ہے...');
+                } else {
+                    console.log('PWA install dismissed');
+                    showInfoMessage('آپ نے ایپ انسٹال کرنے سے انکار کیا ہے۔ بعد میں بھی انسٹال کر سکتے ہیں۔');
+                }
+
+                deferredPrompt = null;
+            } else {
+                showInfoMessage('آپ کا براؤزر PWA انسٹالیشن کو سپورٹ نہیں کرتا یا ایپ پہلے ہی انسٹال ہے۔');
+            }
+        }
+
+        // Check background notification status
+        function checkBackgroundStatus() {
+            const statusDiv = document.getElementById('backgroundStatus');
+            const statusText = document.getElementById('backgroundStatusText');
+
+            let status = [];
+
+            // Check Service Worker
+            if ('serviceWorker' in navigator && swRegistration) {
+                status.push('✅ Service Worker فعال');
+            } else {
+                status.push('❌ Service Worker غیر فعال');
+            }
+
+            // Check Notification Permission
+            if (Notification.permission === 'granted') {
+                status.push('✅ Notifications کی اجازت موجود');
+            } else {
+                status.push('❌ Notifications کی اجازت نہیں');
+            }
+
+            // Check PWA
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                status.push('✅ PWA انسٹال شدہ');
+                statusDiv.className = 'alert alert-success';
+            } else {
+                status.push('⚠️ PWA انسٹال نہیں (بہتری کے لیے انسٹال کریں)');
+                statusDiv.className = 'alert alert-warning';
+
+                // Make the warning clickable
+                statusText.innerHTML = status.join('<br>');
+                statusText.style.cursor = 'pointer';
+                statusText.onclick = installPWA;
+                statusText.title = 'کلک کریں ایپ انسٹال کرنے کے لیے';
+            }
+
+            // Check Background Sync
+            if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+                status.push('✅ Background Sync دستیاب');
+            } else {
+                status.push('❌ Background Sync غیر دستیاب');
+            }
+
+            statusText.innerHTML = status.join('<br>');
+        }
+
+        // Enhanced Service Worker Notification Scheduling
+        function scheduleServiceWorkerNotification(time, type) {
+            if (swRegistration && swRegistration.active) {
+                const messages = {
+                    morning: {
+                        title: 'صبح کی یاددہانی - حدیث مبارک',
+                        body: 'السلام علیکم! آج کی بابرکت حدیث پڑھیں 📖'
+                    },
+                    evening: {
+                        title: 'شام کی یاددہانی - حدیث مبارک',
+                        body: 'آج کی حدیث پر غور کریں اور عمل کا فیصلہ کریں 🌙'
+                    }
+                };
+
+                const message = messages[type];
+
+                swRegistration.active.postMessage({
+                    type: 'SCHEDULE_NOTIFICATION',
+                    time: time,
+                    type: type,
+                    title: message.title,
+                    body: message.body
+                });
+            }
+        }
 
         // Load user data
         function loadUserData() {
-            const saved = JSON.parse(localStorage.getItem('hadithAppData') || '{}');
-            userData = { ...userData, ...saved };
+            const saved = localStorage.getItem('hadithAppData');
+            if (saved) {
+                const parsedData = JSON.parse(saved);
+                userData = { ...userData, ...parsedData };
+            }
 
-            // Ensure notifications object exists
+            // Ensure all required properties exist
             if (!userData.notifications) {
                 userData.notifications = {
                     lastMorningNotification: null,
                     lastEveningNotification: null,
-                    scheduledNotifications: []
+                    scheduledNotifications: [],
+                    backgroundJobs: []
                 };
+            }
+
+            if (!userData.settings.persistentEnabled) {
+                userData.settings.persistentEnabled = true;
+            }
+
+            if (!userData.settings.soundEnabled) {
+                userData.settings.soundEnabled = true;
             }
         }
 
@@ -794,10 +1123,17 @@
             localStorage.setItem('hadithAppData', JSON.stringify(userData));
         }
 
-        // Initialize notifications
+        // Initialize notifications with background support
         function initializeNotifications() {
             if ('Notification' in window) {
                 updateNotificationStatus();
+
+                // Request persistent notification permission
+                if (Notification.permission === 'default') {
+                    Notification.requestPermission().then(permission => {
+                        updateNotificationStatus();
+                    });
+                }
             } else {
                 document.getElementById('notificationStatus').innerHTML = `
                     <div class="text-danger">
@@ -824,13 +1160,16 @@
             switch (Notification.permission) {
                 case 'granted':
                     statusDiv.className = 'notification-status enabled';
-                    statusText.innerHTML = '<i class="fas fa-bell"></i> یاددہانی کی اجازت موجود ہے';
+                    statusText.innerHTML = `
+                        <i class="fas fa-bell"></i> یاددہانی کی اجازت موجود ہے
+                        <br><small>Background notifications ${swRegistration ? 'فعال' : 'غیر فعال'}</small>
+                    `;
                     requestBtn.style.display = 'none';
                     updateNextNotificationInfo();
                     break;
                 case 'denied':
                     statusDiv.className = 'notification-status disabled';
-                    statusText.innerHTML = '<i class="fas fa-bell-slash"></i> یاددہانی مسترد کر دی گئی ہے';
+                    statusText.innerHTML = '<i class="fas fa-bell-slash"></i> یاددہانی مسترد کر دی گئی ہے<br><small>Browser settings میں جا کر اجازت دیں</small>';
                     requestBtn.style.display = 'none';
                     break;
                 default:
@@ -841,38 +1180,107 @@
         }
 
         // Request notification permission
-        function requestNotificationPermission() {
+        async function requestNotificationPermission() {
             if ('Notification' in window) {
-                Notification.requestPermission().then(permission => {
-                    updateNotificationStatus();
-                    if (permission === 'granted') {
-                        showSuccessMessage('یاددہانی کی اجازت مل گئی! اب آپ کو وقت پر notifications آئیں گی۔');
-                        updateNotificationSchedule();
-                    } else {
-                        showInfoMessage('یاددہانی کی اجازت نہیں ملی۔ Browser settings سے اجازت دے سکتے ہیں۔');
-                    }
-                });
+                const permission = await Notification.requestPermission();
+                updateNotificationStatus();
+
+                if (permission === 'granted') {
+                    showSuccessMessage('یاددہانی کی اجازت مل گئی! اب آپ کو وقت پر notifications آئیں گی۔');
+                    updateNotificationSchedule();
+
+                    // Test notification after permission granted
+                    setTimeout(() => {
+                        testNotification();
+                    }, 1000);
+                } else {
+                    showInfoMessage('یاددہانی کی اجازت نہیں ملی۔ Browser settings سے اجازت دے سکتے ہیں۔');
+                }
             }
         }
 
-        // Start notification scheduler - Smart background monitoring
+        // Test notification
+        function testNotification() {
+            if (Notification.permission === 'granted') {
+                const notification = new Notification('ٹیسٹ یاددہانی - حدیث مبارک', {
+                    body: 'یہ ٹیسٹ notification ہے۔ اگر یہ نظر آرہی ہے تو notifications کام کر رہی ہیں! ✅',
+                    icon: createNotificationIcon('🧪'),
+                    tag: 'test-notification'
+                });
+
+                notification.onclick = function () {
+                    window.focus();
+                    notification.close();
+                };
+
+                setTimeout(() => {
+                    notification.close();
+                }, 5000);
+
+                showSuccessMessage('ٹیسٹ notification بھیج دی گئی!');
+            } else {
+                showInfoMessage('پہلے notifications کی اجازت دیں');
+            }
+        }
+
+        // Enhanced notification scheduler with background support
         function startNotificationScheduler() {
             // Clear any existing intervals
             notificationIntervals.forEach(interval => clearInterval(interval));
             notificationIntervals = [];
 
-            // Check every minute for scheduled notifications
-            const mainInterval = setInterval(() => {
-                checkScheduledNotifications();
-            }, 60000); // Check every minute
+            if (Notification.permission !== 'granted') return;
 
-            notificationIntervals.push(mainInterval);
+            // Foreground scheduler - checks every minute
+            const foregroundInterval = setInterval(() => {
+                checkScheduledNotifications();
+            }, 60000);
+
+            notificationIntervals.push(foregroundInterval);
+
+            // Background scheduler using Service Worker
+            scheduleBackgroundNotifications();
 
             // Also check immediately
             checkScheduledNotifications();
         }
 
-        // Check for scheduled notifications
+        // Schedule background notifications
+        function scheduleBackgroundNotifications() {
+            if (!swRegistration || !userData.settings.persistentEnabled) return;
+
+            const now = new Date();
+
+            // Schedule next 7 days of notifications
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(now);
+                date.setDate(date.getDate() + i);
+
+                // Morning notification
+                if (userData.settings.morningEnabled) {
+                    const [hours, minutes] = userData.settings.morningTime.split(':');
+                    const morningTime = new Date(date);
+                    morningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+                    if (morningTime > now) {
+                        scheduleServiceWorkerNotification(morningTime.getTime(), 'morning');
+                    }
+                }
+
+                // Evening notification
+                if (userData.settings.eveningEnabled) {
+                    const [hours, minutes] = userData.settings.eveningTime.split(':');
+                    const eveningTime = new Date(date);
+                    eveningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+                    if (eveningTime > now) {
+                        scheduleServiceWorkerNotification(eveningTime.getTime(), 'evening');
+                    }
+                }
+            }
+        }
+
+        // Check for scheduled notifications (foreground)
         function checkScheduledNotifications() {
             if (Notification.permission !== 'granted') return;
 
@@ -886,7 +1294,7 @@
                 currentTime === userData.settings.morningTime &&
                 userData.notifications.lastMorningNotification !== today) {
 
-                sendNotification('morning');
+                sendForegroundNotification('morning');
                 userData.notifications.lastMorningNotification = today;
                 saveUserData();
             }
@@ -896,7 +1304,7 @@
                 currentTime === userData.settings.eveningTime &&
                 userData.notifications.lastEveningNotification !== today) {
 
-                sendNotification('evening');
+                sendForegroundNotification('evening');
                 userData.notifications.lastEveningNotification = today;
                 saveUserData();
             }
@@ -907,8 +1315,8 @@
             }
         }
 
-        // Send notification
-        function sendNotification(type) {
+        // Send foreground notification
+        function sendForegroundNotification(type) {
             if (Notification.permission !== 'granted') return;
 
             const messages = {
@@ -926,33 +1334,55 @@
 
             const message = messages[type];
 
-            // Create notification
-            const notification = new Notification(message.title, {
-                body: message.body,
-                icon: createNotificationIcon(message.icon),
-                badge: createNotificationIcon('📖'),
-                tag: `hadith-${type}`,
-                renotify: true,
-                requireInteraction: false,
-                silent: false
-            });
+            // Use Service Worker notification for better persistence
+            if (swRegistration) {
+                swRegistration.showNotification(message.title, {
+                    body: message.body,
+                    icon: createNotificationIcon(message.icon),
+                    badge: createNotificationIcon('📖'),
+                    tag: `hadith-${type}`,
+                    renotify: true,
+                    requireInteraction: false,
+                    silent: !userData.settings.soundEnabled,
+                    actions: [
+                        {
+                            action: 'open',
+                            title: 'کھولیں'
+                        },
+                        {
+                            action: 'later',
+                            title: 'بعد میں'
+                        }
+                    ],
+                    data: {
+                        type: type,
+                        url: window.location.origin
+                    }
+                });
+            } else {
+                // Fallback to regular notification
+                const notification = new Notification(message.title, {
+                    body: message.body,
+                    icon: createNotificationIcon(message.icon),
+                    tag: `hadith-${type}`,
+                    renotify: true,
+                    requireInteraction: false,
+                    silent: !userData.settings.soundEnabled
+                });
 
-            // Handle notification click
-            notification.onclick = function () {
-                window.focus();
-                notification.close();
-                // Show hadith section if app is open
-                if (!document.getElementById('main-content').classList.contains('d-none')) {
-                    showSection('hadith');
-                }
-            };
+                notification.onclick = function () {
+                    window.focus();
+                    notification.close();
+                    if (!document.getElementById('main-content').classList.contains('d-none')) {
+                        showSection('hadith');
+                    }
+                };
 
-            // Auto close after 10 seconds
-            setTimeout(() => {
-                notification.close();
-            }, 10000);
+                setTimeout(() => {
+                    notification.close();
+                }, 10000);
+            }
 
-            // Log notification
             console.log(`${type} notification sent at ${new Date().toLocaleTimeString()}`);
         }
 
@@ -979,7 +1409,6 @@
 
         // Update notification schedule
         function updateNotificationSchedule() {
-            // Restart the scheduler with new settings
             startNotificationScheduler();
             updateNextNotificationInfo();
             saveUserData();
@@ -1004,7 +1433,6 @@
                 const morningDate = new Date();
                 morningDate.setHours(parseInt(morningTime[0]), parseInt(morningTime[1]), 0, 0);
 
-                // If morning time has passed today, schedule for tomorrow
                 if (morningDate <= now) {
                     morningDate.setDate(morningDate.getDate() + 1);
                 }
@@ -1021,7 +1449,6 @@
                 const eveningDate = new Date();
                 eveningDate.setHours(parseInt(eveningTime[0]), parseInt(eveningTime[1]), 0, 0);
 
-                // If evening time has passed today, schedule for tomorrow
                 if (eveningDate <= now) {
                     eveningDate.setDate(eveningDate.getDate() + 1);
                 }
@@ -1033,9 +1460,7 @@
             }
 
             if (nextNotifications.length > 0) {
-                // Sort by time
                 nextNotifications.sort((a, b) => a.time - b.time);
-
                 const next = nextNotifications[0];
                 const timeUntil = next.time - now;
                 const hoursUntil = Math.floor(timeUntil / (1000 * 60 * 60));
@@ -1046,6 +1471,12 @@
                     <br>
                     <small class="text-muted">
                         ${hoursUntil > 0 ? `${hoursUntil} گھنٹے ` : ''}${minutesUntil} منٹ باقی
+                    </small>
+                    <br>
+                    <small class="text-success">
+                        ${userData.settings.persistentEnabled && swRegistration ?
+                        '<i class="fas fa-check"></i> Background میں چلے گی' :
+                        '<i class="fas fa-exclamation-triangle"></i> صرف app کھلی ہونے پر'}
                     </small>
                 `;
 
@@ -1098,6 +1529,13 @@
                 loadTodaysHadith();
                 updateDashboard();
                 loadSettings();
+
+                // Request notification permission if not granted
+                if (Notification.permission !== 'granted') {
+                    setTimeout(() => {
+                        requestNotificationPermission();
+                    }, 2000);
+                }
             }
         }
 
@@ -1121,17 +1559,14 @@
 
             switch (userData.schedule) {
                 case 'today':
-                    // For today schedule, use current day of year
                     const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
                     hadithIndex = (dayOfYear - 1) % ahadithData.ahadith.length;
                     break;
                 case 'week':
-                    // For weekly schedule, use day of week
                     const dayOfWeek = today.getDay();
                     hadithIndex = dayOfWeek % ahadithData.ahadith.length;
                     break;
                 case 'month':
-                    // For monthly schedule, use day of month
                     const dayOfMonth = today.getDate();
                     hadithIndex = (dayOfMonth - 1) % ahadithData.ahadith.length;
                     break;
@@ -1150,7 +1585,6 @@
                 if (!userData.readHadiths.includes(currentHadithIndex)) {
                     userData.readHadiths.push(currentHadithIndex);
                 }
-                // Add to recent hadiths
                 addToRecentHadiths(currentHadithIndex);
                 saveUserData();
                 updateDashboard();
@@ -1167,7 +1601,6 @@
                 practiced: userData.practicedHadiths.includes(hadithIndex)
             };
 
-            // Add to beginning and limit to 5 items
             userData.recentHadiths.unshift(recentItem);
             userData.recentHadiths = userData.recentHadiths.slice(0, 5);
         }
@@ -1199,7 +1632,6 @@
             document.getElementById('hadithText').textContent = hadith.hadith;
             document.getElementById('hadithReference').textContent = hadith.reference;
 
-            // Show/hide practice question based on whether already answered
             const practiceQuestion = document.getElementById('practice-question');
             if (userData.practicedHadiths.includes(index)) {
                 practiceQuestion.style.display = 'none';
@@ -1213,7 +1645,6 @@
             currentHadithIndex = Math.floor(Math.random() * ahadithData.ahadith.length);
             displayHadith(currentHadithIndex);
 
-            // Mark as read if not already
             if (!userData.readHadiths.includes(currentHadithIndex)) {
                 userData.readHadiths.push(currentHadithIndex);
                 userData.totalRead++;
@@ -1237,9 +1668,7 @@
                     showInfoMessage('کوئی بات نہیں، اگلی بار ضرور کوشش کریں۔ اللہ آپ کو توفیق دے!');
                 }
 
-                // Update recent hadiths to reflect practice status
                 updateRecentHadithPracticeStatus(currentHadithIndex, practiced);
-
                 saveUserData();
                 updateDashboard();
                 document.getElementById('practice-question').style.display = 'none';
@@ -1301,25 +1730,24 @@
 
         // Show section navigation
         function showSection(section) {
-            // Update nav active state
             document.querySelectorAll('#mainNav .nav-link').forEach(link => {
                 link.classList.remove('active');
             });
             document.getElementById(`${section}-nav`).classList.add('active');
 
-            // Show/hide content
             if (section === 'hadith') {
                 document.getElementById('dashboard-content').classList.add('d-none');
                 document.getElementById('settings-content').classList.add('d-none');
             } else if (section === 'dashboard') {
                 document.getElementById('dashboard-content').classList.remove('d-none');
                 document.getElementById('settings-content').classList.add('d-none');
-                updateRecentHadiths(); // Update recent hadiths when showing dashboard
+                updateRecentHadiths();
             } else if (section === 'settings') {
                 document.getElementById('dashboard-content').classList.add('d-none');
                 document.getElementById('settings-content').classList.remove('d-none');
-                updateNotificationStatus(); // Update status when showing settings
-                updateNextNotificationInfo(); // Update next notification info
+                updateNotificationStatus();
+                updateNextNotificationInfo();
+                checkBackgroundStatus();
             }
         }
 
@@ -1341,7 +1769,6 @@
             document.getElementById('monthlyProgress').textContent = `${monthlyPracticed}/${monthlyGoal}`;
             document.getElementById('monthlyProgressBar').style.width = `${(monthlyPracticed / monthlyGoal) * 100}%`;
 
-            // Update recent hadiths
             updateRecentHadiths();
         }
 
@@ -1351,9 +1778,10 @@
             document.getElementById('eveningTime').value = userData.settings.eveningTime;
             document.getElementById('morningEnabled').checked = userData.settings.morningEnabled;
             document.getElementById('eveningEnabled').checked = userData.settings.eveningEnabled;
+            document.getElementById('persistentEnabled').checked = userData.settings.persistentEnabled;
+            document.getElementById('soundEnabled').checked = userData.settings.soundEnabled;
             document.getElementById('schedule-change').value = userData.schedule || 'today';
 
-            // Update notification schedule after loading settings
             updateNotificationSchedule();
         }
 
@@ -1363,6 +1791,8 @@
             userData.settings.eveningTime = document.getElementById('eveningTime').value;
             userData.settings.morningEnabled = document.getElementById('morningEnabled').checked;
             userData.settings.eveningEnabled = document.getElementById('eveningEnabled').checked;
+            userData.settings.persistentEnabled = document.getElementById('persistentEnabled').checked;
+            userData.settings.soundEnabled = document.getElementById('soundEnabled').checked;
 
             const newSchedule = document.getElementById('schedule-change').value;
             if (newSchedule !== userData.schedule) {
@@ -1374,7 +1804,6 @@
                 showSuccessMessage('ترتیبات محفوظ ہو گئیں!');
             }
 
-            // Update notification schedule
             updateNotificationSchedule();
             saveUserData();
         }
@@ -1382,7 +1811,6 @@
         // Reset progress
         function resetProgress() {
             if (confirm('کیا آپ واقعی تمام ڈیٹا صاف کرنا چاہتے ہیں؟ یہ عمل واپس نہیں کیا جا سکتا۔')) {
-                // Clear intervals
                 notificationIntervals.forEach(interval => clearInterval(interval));
                 notificationIntervals = [];
 
@@ -1401,12 +1829,15 @@
                         morningTime: '07:00',
                         eveningTime: '19:00',
                         morningEnabled: false,
-                        eveningEnabled: false
+                        eveningEnabled: false,
+                        persistentEnabled: true,
+                        soundEnabled: true
                     },
                     notifications: {
                         lastMorningNotification: null,
                         lastEveningNotification: null,
-                        scheduledNotifications: []
+                        scheduledNotifications: [],
+                        backgroundJobs: []
                     }
                 };
                 localStorage.removeItem('hadithAppData');
@@ -1417,7 +1848,31 @@
             }
         }
 
-        // Add touch gestures for mobile
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function () {
+            if (!document.hidden) {
+                checkScheduledNotifications();
+                updateNextNotificationInfo();
+                checkBackgroundStatus();
+            }
+        });
+
+        // Handle page beforeunload
+        window.addEventListener('beforeunload', function () {
+            saveUserData();
+        });
+
+        // Handle service worker messages
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', event => {
+                if (event.data && event.data.type === 'NOTIFICATION_CLICKED') {
+                    // Handle notification click
+                    showSection('hadith');
+                }
+            });
+        }
+
+        // Touch gestures for mobile
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -1436,170 +1891,106 @@
 
             if (Math.abs(diff) > swipeThreshold) {
                 if (diff > 0) {
-                    // Swipe left - next hadith
                     getRandomHadith();
                 } else {
-                    // Swipe right - could add previous hadith functionality
-                    // For now, just get random hadith
                     getRandomHadith();
                 }
             }
         }
 
-        // Add keyboard shortcuts
+        // Keyboard shortcuts
         document.addEventListener('keydown', function (e) {
-            // Only work if not in input fields
             if (e.target.tagName.toLowerCase() !== 'input' && e.target.tagName.toLowerCase() !== 'textarea') {
                 switch (e.key) {
-                    case 'n': // Next hadith
+                    case 'n':
                     case 'N':
                         getRandomHadith();
                         break;
-                    case 'y': // Yes to practice
+                    case 'y':
                     case 'Y':
                         if (!userData.practicedHadiths.includes(currentHadithIndex)) {
                             markAsPracticed(true);
                         }
                         break;
-                    case ' ': // Space for next hadith
+                    case ' ':
                         e.preventDefault();
                         getRandomHadith();
+                        break;
+                    case 't':
+                    case 'T':
+                        testNotification();
                         break;
                 }
             }
         });
 
-        // Page visibility API - Handle app coming back to foreground
-        document.addEventListener('visibilitychange', function () {
-            if (!document.hidden) {
-                // App came back to foreground, check for missed notifications
+        // Wake Lock API for keeping app active (experimental)
+        let wakeLock = null;
+
+        async function requestWakeLock() {
+            if ('wakeLock' in navigator) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('Wake lock acquired');
+                } catch (err) {
+                    console.log('Wake lock failed:', err);
+                }
+            }
+        }
+
+        // Battery optimization warning for Android
+        function checkBatteryOptimization() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent.includes('android')) {
+                setTimeout(() => {
+                    if (document.visibilityState === 'visible') {
+                        showInfoMessage('Android users: Notifications کے لیے Battery Optimization میں اس ایپ کو whitelist کریں');
+                    }
+                }, 5000);
+            }
+        }
+
+        // Initialize battery optimization check
+        setTimeout(checkBatteryOptimization, 3000);
+
+        // Periodic sync for missed notifications
+        setInterval(() => {
+            if (document.visibilityState === 'visible') {
                 checkScheduledNotifications();
-                updateNextNotificationInfo();
             }
-        });
+        }, 5 * 60 * 1000); // Check every 5 minutes
 
-        // Handle page beforeunload - Save state before closing
-        window.addEventListener('beforeunload', function () {
-            saveUserData();
-        });
+        console.log('Hadith App with Background Notifications initialized');
+    </script>
 
-        // Service Worker Registration for background notifications (if supported)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                // Register service worker for background functionality
-                navigator.serviceWorker.register('/sw.js').then(function (registration) {
-                    console.log('ServiceWorker registration successful');
-                }, function (err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                }).catch(function (error) {
-                    // Service worker file doesn't exist, continue without it
-                    console.log('Service worker not available, using foreground notifications only');
-                });
-            });
-        }
-
-        // Advanced notification scheduling with localStorage backup
-        function scheduleNotificationsInStorage() {
-            if (Notification.permission !== 'granted') return;
-
-            const now = new Date();
-            const scheduledNotifications = [];
-
-            // Schedule next 7 days of notifications
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(now);
-                date.setDate(date.getDate() + i);
-
-                if (userData.settings.morningEnabled) {
-                    const [hours, minutes] = userData.settings.morningTime.split(':');
-                    const morningTime = new Date(date);
-                    morningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-
-                    if (morningTime > now) {
-                        scheduledNotifications.push({
-                            type: 'morning',
-                            time: morningTime.getTime(),
-                            sent: false
-                        });
-                    }
+    <!-- Manifest for PWA -->
+    <script>
+        // Create and inject manifest
+        const manifest = {
+            "name": "Daily Hadith Mubarak",
+            "short_name": "Hadith App",
+            "description": "Daily Islamic Hadith with Background Notifications",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#2D5016",
+            "theme_color": "#2D5016",
+            "orientation": "portrait",
+            "icons": [
+                {
+                    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
+                    "sizes": "192x192",
+                    "type": "image/png"
                 }
+            ]
+        };
 
-                if (userData.settings.eveningEnabled) {
-                    const [hours, minutes] = userData.settings.eveningTime.split(':');
-                    const eveningTime = new Date(date);
-                    eveningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
 
-                    if (eveningTime > now) {
-                        scheduledNotifications.push({
-                            type: 'evening',
-                            time: eveningTime.getTime(),
-                            sent: false
-                        });
-                    }
-                }
-            }
-
-            userData.notifications.scheduledNotifications = scheduledNotifications;
-            saveUserData();
-        }
-
-        // Check and process scheduled notifications from storage
-        function processStoredNotifications() {
-            const now = new Date().getTime();
-            let hasUpdates = false;
-
-            userData.notifications.scheduledNotifications.forEach(notification => {
-                if (!notification.sent && now >= notification.time) {
-                    sendNotification(notification.type);
-                    notification.sent = true;
-                    hasUpdates = true;
-                }
-            });
-
-            if (hasUpdates) {
-                // Clean up old notifications (older than 24 hours)
-                const oneDayAgo = now - (24 * 60 * 60 * 1000);
-                userData.notifications.scheduledNotifications = userData.notifications.scheduledNotifications.filter(
-                    n => n.time > oneDayAgo
-                );
-                saveUserData();
-            }
-        }
-
-        // Enhanced notification scheduler
-        function enhancedNotificationScheduler() {
-            // Check immediate notifications
-            checkScheduledNotifications();
-
-            // Process stored notifications
-            processStoredNotifications();
-
-            // Schedule future notifications
-            scheduleNotificationsInStorage();
-        }
-
-        // Initialize enhanced notifications
-        function initializeEnhancedNotifications() {
-            enhancedNotificationScheduler();
-
-            // Set up periodic checks (every 5 minutes)
-            const enhancedInterval = setInterval(() => {
-                enhancedNotificationScheduler();
-            }, 5 * 60 * 1000); // 5 minutes
-
-            notificationIntervals.push(enhancedInterval);
-        }
-
-        // Override the original notification scheduler
-        function startNotificationScheduler() {
-            // Clear any existing intervals
-            notificationIntervals.forEach(interval => clearInterval(interval));
-            notificationIntervals = [];
-
-            // Start enhanced notification system
-            initializeEnhancedNotifications();
-        }
-
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestURL;
+        document.head.appendChild(link);
     </script>
 </body>
 

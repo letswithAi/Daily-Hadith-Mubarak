@@ -10,6 +10,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2D5016">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hadith App">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMyRDUwMTYiLz4KPHN2ZyB4PSI0OCIgeT0iNDgiIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiA2QzEzLjEgNiAxNCA2LjkgMTQgOFYxMEgxNkMxNi41IDEwIDE3IDEwLjQgMTcgMTFDMTcgMTEuNiAxNi41IDEyIDE2IDEySDE0VjE0QzE0IDE1LjEgMTMuMSAxNiAxMiAxNkMxMC45IDE2IDEwIDE1LjEgMTAgMTRWMTJIOEMzLjUgMTIgNyAxMS42IDcgMTFDNyAxMC40IDcuNSAxMCA4IDEwSDEwVjhDMTAgNi45IDEwLjkgNiAxMiA2WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cjwvc3ZnPgo=">
+
     <style>
         :root {
             --primary-green: #2D5016;
@@ -78,13 +90,7 @@
             margin-top: 1rem;
         }
 
-        /* Header Navigation */
-        .content-header {
-            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
-            color: white;
-            padding: 1rem 0;
-        }
-
+        /* Navigation */
         .nav-pills {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
@@ -155,7 +161,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Schedule Selection (Initial Screen) */
+        /* Schedule Selection */
         .schedule-selection {
             text-align: center;
             padding: 3rem 2rem;
@@ -347,7 +353,6 @@
             border-color: #dc3545;
         }
 
-        /* Notification Test Button */
         .notification-test-section {
             background: rgba(13, 202, 240, 0.1);
             border: 1px solid #0dcaf0;
@@ -378,6 +383,18 @@
             display: none;
         }
 
+        /* Islamic Decoration */
+        .islamic-decoration {
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .d-none {
+            display: none !important;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -403,10 +420,6 @@
 
             .header h1 {
                 font-size: 1.5rem;
-            }
-
-            .celebration-text {
-                font-size: 0.8rem;
             }
 
             .content-body {
@@ -438,28 +451,10 @@
                 justify-content: center;
             }
         }
-
-        /* Islamic Patterns */
-        .pattern-bg {
-            background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23D4AF37" fill-opacity="0.05"><polygon points="30 0 60 30 30 60 0 30"/></g></g></svg>');
-        }
-
-        /* Islamic Decoration */
-        .islamic-decoration {
-            text-align: center;
-            margin: 1rem 0;
-            color: var(--gold);
-            font-size: 1.5rem;
-        }
-
-        /* Hidden class */
-        .d-none {
-            display: none !important;
-        }
     </style>
 </head>
 
-<body class="pattern-bg">
+<body>
     <div class="header">
         <div class="container">
             <h1><i class="fas fa-mosque"></i> Daily Hadith Mubarak</h1>
@@ -509,9 +504,6 @@
                     <div id="pwa-install-prompt" class="pwa-install-prompt hidden" onclick="installPWA()">
                         <h6><i class="fas fa-download"></i> بہتر تجربے کے لیے ایپ انسٹال کریں</h6>
                         <p class="small">ایپ انسٹال کرنے سے آپ کو بہتر background notifications ملیں گی</p>
-                        <div class="mt-2">
-                            <small class="text-muted">(کلک کریں انسٹال کرنے کے لیے)</small>
-                        </div>
                     </div>
 
                     <div class="schedule-options">
@@ -651,9 +643,6 @@
                                         onclick="installPWA()">
                                         <h6><i class="fas fa-download"></i> ایپ انسٹال کریں</h6>
                                         <p class="small">بہتر background notifications کے لیے</p>
-                                        <div class="mt-2">
-                                            <small class="text-muted">(کلک کریں انسٹال کرنے کے لیے)</small>
-                                        </div>
                                     </div>
 
                                     <!-- Notification Status -->
@@ -689,8 +678,7 @@
 
                                     <div class="mb-3">
                                         <h6><i class="fas fa-bell"></i> یاددہانی کی ترتیبات</h6>
-                                        <small class="text-muted">آپ کے set کیے گئے وقت پر notification آئے گی (ایپ بند
-                                            ہونے پر بھی)</small>
+                                        <small class="text-muted">آپ کے set کیے گئے وقت پر notification آئے گی</small>
                                     </div>
 
                                     <div class="mb-3">
@@ -713,20 +701,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Advanced Notification Settings -->
-                                    <div class="mb-3">
-                                        <h6><i class="fas fa-cogs"></i> اضافی ترتیبات</h6>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="persistentEnabled"
-                                                checked>
-                                            <label class="form-check-label">مستقل یاددہانی (ایپ بند ہونے پر بھی)</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="soundEnabled" checked>
-                                            <label class="form-check-label">آواز کے ساتھ</label>
-                                        </div>
-                                    </div>
-
                                     <div class="text-center mb-4">
                                         <button class="btn btn-primary" onclick="saveSettings()">
                                             <i class="fas fa-save"></i> محفوظ کریں
@@ -739,20 +713,12 @@
                                         <div id="nextNotificationTime"></div>
                                     </div>
 
-                                    <!-- Background Status -->
-                                    <div id="backgroundStatus" class="alert alert-warning">
-                                        <h6><i class="fas fa-info-circle"></i> بیک گراؤند کی صورتحال</h6>
-                                        <div id="backgroundStatusText">چیک کر رہے ہیں...</div>
-                                    </div>
-
                                     <hr class="my-4">
 
                                     <div class="text-center">
                                         <h6>ایپ کی معلومات</h6>
                                         <p class="small text-muted mb-3">
                                             یہ ایپ حضرت محمد ﷺ کے 1500ویں سال کی مناسبت سے بنایا گیا ہے۔
-                                            <br>
-                                            <strong>Background Notifications:</strong> ایپ بند ہونے پر بھی کام کرتا ہے
                                         </p>
                                         <button class="btn btn-outline-danger" onclick="resetProgress()">
                                             <i class="fas fa-trash"></i> تمام ڈیٹا صاف کریں
@@ -769,7 +735,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Hadith data from JSON
+        // Hadith data
         const ahadithData = {
             "ahadith": [
                 { "id": 1, "hadith": "تم میں سے بہتر وہ ہے جو قرآن سیکھے اور سکھائے۔", "reference": "صحیح بخاری: کتاب فضائل القرآن، حدیث 5027" },
@@ -815,7 +781,6 @@
             ]
         };
 
-
         // PWA & Service Worker Variables
         let deferredPrompt;
         let swRegistration;
@@ -823,9 +788,9 @@
         // App state
         let currentHadithIndex = 0;
         let selectedSchedule = null;
-        let notificationIntervals = [];
-        let backgroundScheduleActive = false;
+        let notificationTimeouts = [];
 
+        // User data structure
         let userData = {
             totalRead: 0,
             totalPracticed: 0,
@@ -841,93 +806,150 @@
                 morningTime: '07:00',
                 eveningTime: '19:00',
                 morningEnabled: false,
-                eveningEnabled: false,
-                persistentEnabled: true,
-                soundEnabled: true
+                eveningEnabled: false
             },
             notifications: {
                 lastMorningNotification: null,
-                lastEveningNotification: null,
-                scheduledNotifications: [],
-                backgroundJobs: []
+                lastEveningNotification: null
             }
         };
 
-        // Service Worker Code (inline)
+        // Proper Service Worker code with background notifications
         const serviceWorkerCode = `
-            const CACHE_NAME = 'hadith-app-v1';
-            
+            const CACHE_NAME = 'hadith-app-v2';
+            const urlsToCache = [
+                '/',
+                '/manifest.json'
+            ];
+
+            // Install event
             self.addEventListener('install', event => {
-                console.log('Service Worker: Installed');
-                self.skipWaiting();
+                console.log('SW: Installing...');
+                event.waitUntil(
+                    caches.open(CACHE_NAME)
+                        .then(cache => cache.addAll(urlsToCache))
+                        .then(() => self.skipWaiting())
+                );
             });
 
+            // Activate event
             self.addEventListener('activate', event => {
-                console.log('Service Worker: Activated');
-                event.waitUntil(self.clients.claim());
+                console.log('SW: Activating...');
+                event.waitUntil(
+                    caches.keys().then(cacheNames => {
+                        return Promise.all(
+                            cacheNames.map(cacheName => {
+                                if (cacheName !== CACHE_NAME) {
+                                    return caches.delete(cacheName);
+                                }
+                            })
+                        );
+                    }).then(() => self.clients.claim())
+                );
             });
 
+            // Fetch event
+            self.addEventListener('fetch', event => {
+                event.respondWith(
+                    caches.match(event.request)
+                        .then(response => {
+                            return response || fetch(event.request);
+                        })
+                );
+            });
+
+            // Message handler for scheduling notifications
             self.addEventListener('message', event => {
-                if (event.data && event.data.type === 'SCHEDULE_NOTIFICATION') {
-                    const { time, type, title, body } = event.data;
-                    const delay = time - Date.now();
-                    
-                    if (delay > 0) {
-                        setTimeout(() => {
-                            self.registration.showNotification(title, {
-                                body: body,
-                                icon: '/icon-192x192.png',
-                                badge: '/icon-72x72.png',
-                                tag: 'hadith-' + type,
-                                renotify: true,
-                                requireInteraction: false,
-                                actions: [
-                                    {
-                                        action: 'open',
-                                        title: 'کھولیں'
-                                    },
-                                    {
-                                        action: 'close',
-                                        title: 'بند کریں'
-                                    }
-                                ],
-                                data: {
-                                    type: type,
-                                    url: '/'
-                                }
-                            });
-                        }, delay);
-                    }
+                if (event.data && event.data.type === 'SCHEDULE_NOTIFICATIONS') {
+                    const { morningTime, eveningTime, morningEnabled, eveningEnabled } = event.data;
+                    scheduleNotifications(morningTime, eveningTime, morningEnabled, eveningEnabled);
                 }
             });
 
+            // Schedule notifications
+            function scheduleNotifications(morningTime, eveningTime, morningEnabled, eveningEnabled) {
+                const now = new Date();
+                
+                // Schedule for next 7 days
+                for (let i = 0; i < 7; i++) {
+                    const targetDate = new Date(now);
+                    targetDate.setDate(now.getDate() + i);
+                    
+                    if (morningEnabled) {
+                        const [hours, minutes] = morningTime.split(':');
+                        const morningDateTime = new Date(targetDate);
+                        morningDateTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                        
+                        if (morningDateTime > now) {
+                            const delay = morningDateTime.getTime() - now.getTime();
+                            setTimeout(() => {
+                                showNotification('صبح کی یاددہانی - حدیث مبارک', 'السلام علیکم! آج کی بابرکت حدیث پڑھیں 📖', 'morning');
+                            }, delay);
+                        }
+                    }
+                    
+                    if (eveningEnabled) {
+                        const [hours, minutes] = eveningTime.split(':');
+                        const eveningDateTime = new Date(targetDate);
+                        eveningDateTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                        
+                        if (eveningDateTime > now) {
+                            const delay = eveningDateTime.getTime() - now.getTime();
+                            setTimeout(() => {
+                                showNotification('شام کی یاددہانی - حدیث مبارک', 'آج کی حدیث پر غور کریں اور عمل کا فیصلہ کریں 🌙', 'evening');
+                            }, delay);
+                        }
+                    }
+                }
+            }
+
+            // Show notification
+            function showNotification(title, body, tag) {
+                self.registration.showNotification(title, {
+                    body: body,
+                    icon: createIcon(),
+                    badge: createIcon(),
+                    tag: tag,
+                    renotify: true,
+                    requireInteraction: false,
+                    vibrate: [200, 100, 200],
+                    actions: [
+                        {
+                            action: 'open',
+                            title: 'کھولیں'
+                        },
+                        {
+                            action: 'close',
+                            title: 'بعد میں'
+                        }
+                    ]
+                });
+            }
+
+            // Create notification icon
+            function createIcon() {
+                return 'data:image/svg+xml;base64,' + btoa(\`
+                    <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="192" height="192" rx="24" fill="#2D5016"/>
+                        <text x="96" y="120" text-anchor="middle" fill="white" font-size="72">📖</text>
+                    </svg>
+                \`);
+            }
+
+            // Handle notification click
             self.addEventListener('notificationclick', event => {
                 event.notification.close();
                 
-                if (event.action === 'open' || !event.action) {
-                    event.waitUntil(
-                        self.clients.matchAll().then(clients => {
-                            if (clients.length > 0) {
-                                return clients[0].focus();
-                            } else {
-                                return self.clients.openWindow('/');
-                            }
-                        })
-                    );
-                }
+                event.waitUntil(
+                    self.clients.matchAll().then(clients => {
+                        if (clients.length > 0) {
+                            return clients[0].focus();
+                        } else {
+                            return self.clients.openWindow('/');
+                        }
+                    })
+                );
             });
-
-            // Background sync for notifications
-            self.addEventListener('sync', event => {
-                if (event.tag === 'background-sync') {
-                    event.waitUntil(handleBackgroundSync());
-                }
-            });
-
-            async function handleBackgroundSync() {
-                console.log('Background sync triggered');
-                // Add background notification logic here
-            }
         `;
 
         // Initialize app
@@ -938,62 +960,56 @@
             checkUserSchedule();
             initializeNotifications();
             updateNotificationStatus();
-            startNotificationScheduler();
             initializePWA();
-            checkBackgroundStatus();
         });
 
         // Initialize Service Worker
         async function initializeServiceWorker() {
             if ('serviceWorker' in navigator) {
                 try {
-                    // Create service worker from string
                     const blob = new Blob([serviceWorkerCode], { type: 'application/javascript' });
                     const swUrl = URL.createObjectURL(blob);
 
                     swRegistration = await navigator.serviceWorker.register(swUrl);
                     console.log('Service Worker registered successfully');
 
-                    // Request background sync permission
-                    if ('sync' in window.ServiceWorkerRegistration.prototype) {
-                        await swRegistration.sync.register('background-sync');
-                    }
+                    // Wait for service worker to be ready
+                    await navigator.serviceWorker.ready;
+                    console.log('Service Worker is ready');
 
                 } catch (error) {
-                    console.log('Service Worker registration failed:', error);
+                    console.error('Service Worker registration failed:', error);
                 }
             }
         }
 
         // Initialize PWA
         function initializePWA() {
-            // Show PWA install prompt
+            // PWA install prompt
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
                 showPWAInstallPrompt();
             });
 
-            // Handle app installed
+            // App installed event
             window.addEventListener('appinstalled', () => {
                 hidePWAInstallPrompt();
-                showSuccessMessage('ایپ کامیابی سے انسٹال ہو گئی! اب آپ کو بہتر notifications ملیں گی۔');
-                checkBackgroundStatus();
+                showSuccessMessage('ایپ کامیابی سے انسٹال ہو گئی!');
             });
 
             // Check if already installed
-            if (window.matchMedia('(display-mode: standalone)').matches) {
+            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
                 hidePWAInstallPrompt();
             }
         }
 
-        // Show PWA install prompt
+        // Show/hide PWA install prompt
         function showPWAInstallPrompt() {
             document.getElementById('pwa-install-prompt').classList.remove('hidden');
             document.getElementById('pwa-install-prompt-settings').classList.remove('hidden');
         }
 
-        // Hide PWA install prompt
         function hidePWAInstallPrompt() {
             document.getElementById('pwa-install-prompt').classList.add('hidden');
             document.getElementById('pwa-install-prompt-settings').classList.add('hidden');
@@ -1006,141 +1022,38 @@
                 const { outcome } = await deferredPrompt.userChoice;
 
                 if (outcome === 'accepted') {
-                    console.log('PWA install accepted');
                     showSuccessMessage('ایپ انسٹال ہو رہی ہے...');
                 } else {
-                    console.log('PWA install dismissed');
-                    showInfoMessage('آپ نے ایپ انسٹال کرنے سے انکار کیا ہے۔ بعد میں بھی انسٹال کر سکتے ہیں۔');
+                    showInfoMessage('آپ بعد میں بھی ایپ انسٹال کر سکتے ہیں');
                 }
 
                 deferredPrompt = null;
             } else {
-                showInfoMessage('آپ کا براؤزر PWA انسٹالیشن کو سپورٹ نہیں کرتا یا ایپ پہلے ہی انسٹال ہے۔');
+                showInfoMessage('ایپ پہلے ہی انسٹال ہے یا آپ کا browser PWA کو support نہیں کرتا');
             }
         }
 
-        // Check background notification status
-        function checkBackgroundStatus() {
-            const statusDiv = document.getElementById('backgroundStatus');
-            const statusText = document.getElementById('backgroundStatusText');
-
-            let status = [];
-
-            // Check Service Worker
-            if ('serviceWorker' in navigator && swRegistration) {
-                status.push('✅ Service Worker فعال');
-            } else {
-                status.push('❌ Service Worker غیر فعال');
-            }
-
-            // Check Notification Permission
-            if (Notification.permission === 'granted') {
-                status.push('✅ Notifications کی اجازت موجود');
-            } else {
-                status.push('❌ Notifications کی اجازت نہیں');
-            }
-
-            // Check PWA
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                status.push('✅ PWA انسٹال شدہ');
-                statusDiv.className = 'alert alert-success';
-            } else {
-                status.push('⚠️ PWA انسٹال نہیں (بہتری کے لیے انسٹال کریں)');
-                statusDiv.className = 'alert alert-warning';
-
-                // Make the warning clickable
-                statusText.innerHTML = status.join('<br>');
-                statusText.style.cursor = 'pointer';
-                statusText.onclick = installPWA;
-                statusText.title = 'کلک کریں ایپ انسٹال کرنے کے لیے';
-            }
-
-            // Check Background Sync
-            if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
-                status.push('✅ Background Sync دستیاب');
-            } else {
-                status.push('❌ Background Sync غیر دستیاب');
-            }
-
-            statusText.innerHTML = status.join('<br>');
-        }
-
-        // Enhanced Service Worker Notification Scheduling
-        function scheduleServiceWorkerNotification(time, type) {
-            if (swRegistration && swRegistration.active) {
-                const messages = {
-                    morning: {
-                        title: 'صبح کی یاددہانی - حدیث مبارک',
-                        body: 'السلام علیکم! آج کی بابرکت حدیث پڑھیں 📖'
-                    },
-                    evening: {
-                        title: 'شام کی یاددہانی - حدیث مبارک',
-                        body: 'آج کی حدیث پر غور کریں اور عمل کا فیصلہ کریں 🌙'
-                    }
-                };
-
-                const message = messages[type];
-
-                swRegistration.active.postMessage({
-                    type: 'SCHEDULE_NOTIFICATION',
-                    time: time,
-                    type: type,
-                    title: message.title,
-                    body: message.body
-                });
-            }
-        }
-
-        // Load user data
+        // Load and save user data
         function loadUserData() {
             const saved = localStorage.getItem('hadithAppData');
             if (saved) {
                 const parsedData = JSON.parse(saved);
                 userData = { ...userData, ...parsedData };
             }
-
-            // Ensure all required properties exist
-            if (!userData.notifications) {
-                userData.notifications = {
-                    lastMorningNotification: null,
-                    lastEveningNotification: null,
-                    scheduledNotifications: [],
-                    backgroundJobs: []
-                };
-            }
-
-            if (!userData.settings.persistentEnabled) {
-                userData.settings.persistentEnabled = true;
-            }
-
-            if (!userData.settings.soundEnabled) {
-                userData.settings.soundEnabled = true;
-            }
         }
 
-        // Save user data
         function saveUserData() {
             localStorage.setItem('hadithAppData', JSON.stringify(userData));
         }
 
-        // Initialize notifications with background support
+        // Initialize notifications
         function initializeNotifications() {
-            if ('Notification' in window) {
-                updateNotificationStatus();
+            updateNotificationStatus();
 
-                // Request persistent notification permission
-                if (Notification.permission === 'default') {
-                    Notification.requestPermission().then(permission => {
-                        updateNotificationStatus();
-                    });
-                }
-            } else {
-                document.getElementById('notificationStatus').innerHTML = `
-                    <div class="text-danger">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        آپ کا browser notifications کو support نہیں کرتا
-                    </div>
-                `;
+            if (Notification.permission === 'default') {
+                setTimeout(() => {
+                    requestNotificationPermission();
+                }, 3000);
             }
         }
 
@@ -1160,16 +1073,13 @@
             switch (Notification.permission) {
                 case 'granted':
                     statusDiv.className = 'notification-status enabled';
-                    statusText.innerHTML = `
-                        <i class="fas fa-bell"></i> یاددہانی کی اجازت موجود ہے
-                        <br><small>Background notifications ${swRegistration ? 'فعال' : 'غیر فعال'}</small>
-                    `;
+                    statusText.innerHTML = '<i class="fas fa-bell"></i> یاددہانی کی اجازت موجود ہے';
                     requestBtn.style.display = 'none';
                     updateNextNotificationInfo();
                     break;
                 case 'denied':
                     statusDiv.className = 'notification-status disabled';
-                    statusText.innerHTML = '<i class="fas fa-bell-slash"></i> یاددہانی مسترد کر دی گئی ہے<br><small>Browser settings میں جا کر اجازت دیں</small>';
+                    statusText.innerHTML = '<i class="fas fa-bell-slash"></i> یاددہانی مسترد کر دی گئی<br><small>Browser settings میں جا کر اجازت دیں</small>';
                     requestBtn.style.display = 'none';
                     break;
                 default:
@@ -1186,15 +1096,11 @@
                 updateNotificationStatus();
 
                 if (permission === 'granted') {
-                    showSuccessMessage('یاددہانی کی اجازت مل گئی! اب آپ کو وقت پر notifications آئیں گی۔');
+                    showSuccessMessage('یاددہانی کی اجازت مل گئی!');
                     updateNotificationSchedule();
-
-                    // Test notification after permission granted
-                    setTimeout(() => {
-                        testNotification();
-                    }, 1000);
+                    setTimeout(testNotification, 2000);
                 } else {
-                    showInfoMessage('یاددہانی کی اجازت نہیں ملی۔ Browser settings سے اجازت دے سکتے ہیں۔');
+                    showInfoMessage('یاددہانی کی اجازت نہیں ملی');
                 }
             }
         }
@@ -1203,7 +1109,7 @@
         function testNotification() {
             if (Notification.permission === 'granted') {
                 const notification = new Notification('ٹیسٹ یاددہانی - حدیث مبارک', {
-                    body: 'یہ ٹیسٹ notification ہے۔ اگر یہ نظر آرہی ہے تو notifications کام کر رہی ہیں! ✅',
+                    body: 'یہ ٹیسٹ notification ہے۔ اگر یہ نظر آرہی ہے تو notifications کام کر رہی ہیں!',
                     icon: createNotificationIcon('🧪'),
                     tag: 'test-notification'
                 });
@@ -1213,121 +1119,110 @@
                     notification.close();
                 };
 
-                setTimeout(() => {
-                    notification.close();
-                }, 5000);
-
+                setTimeout(() => notification.close(), 5000);
                 showSuccessMessage('ٹیسٹ notification بھیج دی گئی!');
             } else {
                 showInfoMessage('پہلے notifications کی اجازت دیں');
             }
         }
 
-        // Enhanced notification scheduler with background support
-        function startNotificationScheduler() {
-            // Clear any existing intervals
-            notificationIntervals.forEach(interval => clearInterval(interval));
-            notificationIntervals = [];
+        // Create notification icon
+        function createNotificationIcon(emoji) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#2D5016';
+            ctx.fillRect(0, 0, 128, 128);
+
+            ctx.font = '64px serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'white';
+            ctx.fillText(emoji, 64, 64);
+
+            return canvas.toDataURL();
+        }
+
+        // Update notification schedule
+        function updateNotificationSchedule() {
+            // Clear existing timeouts
+            notificationTimeouts.forEach(timeout => clearTimeout(timeout));
+            notificationTimeouts = [];
 
             if (Notification.permission !== 'granted') return;
 
-            // Foreground scheduler - checks every minute
-            const foregroundInterval = setInterval(() => {
-                checkScheduledNotifications();
-            }, 60000);
-
-            notificationIntervals.push(foregroundInterval);
-
-            // Background scheduler using Service Worker
-            scheduleBackgroundNotifications();
-
-            // Also check immediately
-            checkScheduledNotifications();
-        }
-
-        // Schedule background notifications
-        function scheduleBackgroundNotifications() {
-            if (!swRegistration || !userData.settings.persistentEnabled) return;
-
-            const now = new Date();
-
-            // Schedule next 7 days of notifications
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(now);
-                date.setDate(date.getDate() + i);
-
-                // Morning notification
-                if (userData.settings.morningEnabled) {
-                    const [hours, minutes] = userData.settings.morningTime.split(':');
-                    const morningTime = new Date(date);
-                    morningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-
-                    if (morningTime > now) {
-                        scheduleServiceWorkerNotification(morningTime.getTime(), 'morning');
-                    }
-                }
-
-                // Evening notification
-                if (userData.settings.eveningEnabled) {
-                    const [hours, minutes] = userData.settings.eveningTime.split(':');
-                    const eveningTime = new Date(date);
-                    eveningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-
-                    if (eveningTime > now) {
-                        scheduleServiceWorkerNotification(eveningTime.getTime(), 'evening');
-                    }
-                }
+            // Send schedule to service worker
+            if (swRegistration && swRegistration.active) {
+                swRegistration.active.postMessage({
+                    type: 'SCHEDULE_NOTIFICATIONS',
+                    morningTime: userData.settings.morningTime,
+                    eveningTime: userData.settings.eveningTime,
+                    morningEnabled: userData.settings.morningEnabled,
+                    eveningEnabled: userData.settings.eveningEnabled
+                });
             }
+
+            // Also set up local timeouts for immediate scheduling
+            scheduleLocalNotifications();
+            updateNextNotificationInfo();
+            saveUserData();
         }
 
-        // Check for scheduled notifications (foreground)
-        function checkScheduledNotifications() {
+        // Schedule local notifications (for when app is open)
+        function scheduleLocalNotifications() {
             if (Notification.permission !== 'granted') return;
 
             const now = new Date();
-            const currentTime = now.getHours().toString().padStart(2, '0') + ':' +
-                now.getMinutes().toString().padStart(2, '0');
             const today = now.toDateString();
 
-            // Check morning notification
-            if (userData.settings.morningEnabled &&
-                currentTime === userData.settings.morningTime &&
-                userData.notifications.lastMorningNotification !== today) {
+            // Schedule morning notification
+            if (userData.settings.morningEnabled && userData.notifications.lastMorningNotification !== today) {
+                const [hours, minutes] = userData.settings.morningTime.split(':');
+                const morningTime = new Date();
+                morningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-                sendForegroundNotification('morning');
-                userData.notifications.lastMorningNotification = today;
-                saveUserData();
+                if (morningTime > now) {
+                    const timeout = setTimeout(() => {
+                        showLocalNotification('morning');
+                        userData.notifications.lastMorningNotification = today;
+                        saveUserData();
+                    }, morningTime - now);
+                    notificationTimeouts.push(timeout);
+                }
             }
 
-            // Check evening notification
-            if (userData.settings.eveningEnabled &&
-                currentTime === userData.settings.eveningTime &&
-                userData.notifications.lastEveningNotification !== today) {
+            // Schedule evening notification
+            if (userData.settings.eveningEnabled && userData.notifications.lastEveningNotification !== today) {
+                const [hours, minutes] = userData.settings.eveningTime.split(':');
+                const eveningTime = new Date();
+                eveningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-                sendForegroundNotification('evening');
-                userData.notifications.lastEveningNotification = today;
-                saveUserData();
-            }
-
-            // Update next notification info if settings page is visible
-            if (!document.getElementById('settings-content').classList.contains('d-none')) {
-                updateNextNotificationInfo();
+                if (eveningTime > now) {
+                    const timeout = setTimeout(() => {
+                        showLocalNotification('evening');
+                        userData.notifications.lastEveningNotification = today;
+                        saveUserData();
+                    }, eveningTime - now);
+                    notificationTimeouts.push(timeout);
+                }
             }
         }
 
-        // Send foreground notification
-        function sendForegroundNotification(type) {
+        // Show local notification
+        function showLocalNotification(type) {
             if (Notification.permission !== 'granted') return;
 
             const messages = {
                 morning: {
                     title: 'صبح کی یاددہانی - حدیث مبارک',
-                    body: 'السلام علیکم! اپنے دن کی شروعات بابرکت حدیث کے ساتھ کریں 📖',
+                    body: 'السلام علیکم! آج کی بابرکت حدیث پڑھیں',
                     icon: '🌅'
                 },
                 evening: {
                     title: 'شام کی یاددہانی - حدیث مبارک',
-                    body: 'آج کی حدیث پر غور کریں اور عمل کا فیصلہ کریں 🌙',
+                    body: 'آج کی حدیث پر غور کریں اور عمل کا فیصلہ کریں',
                     icon: '🌙'
                 }
             };
@@ -1343,78 +1238,30 @@
                     tag: `hadith-${type}`,
                     renotify: true,
                     requireInteraction: false,
-                    silent: !userData.settings.soundEnabled,
+                    vibrate: [200, 100, 200],
                     actions: [
-                        {
-                            action: 'open',
-                            title: 'کھولیں'
-                        },
-                        {
-                            action: 'later',
-                            title: 'بعد میں'
-                        }
-                    ],
-                    data: {
-                        type: type,
-                        url: window.location.origin
-                    }
+                        { action: 'open', title: 'کھولیں' },
+                        { action: 'later', title: 'بعد میں' }
+                    ]
                 });
             } else {
                 // Fallback to regular notification
                 const notification = new Notification(message.title, {
                     body: message.body,
                     icon: createNotificationIcon(message.icon),
-                    tag: `hadith-${type}`,
-                    renotify: true,
-                    requireInteraction: false,
-                    silent: !userData.settings.soundEnabled
+                    tag: `hadith-${type}`
                 });
 
                 notification.onclick = function () {
                     window.focus();
                     notification.close();
-                    if (!document.getElementById('main-content').classList.contains('d-none')) {
-                        showSection('hadith');
-                    }
                 };
 
-                setTimeout(() => {
-                    notification.close();
-                }, 10000);
+                setTimeout(() => notification.close(), 10000);
             }
-
-            console.log(`${type} notification sent at ${new Date().toLocaleTimeString()}`);
         }
 
-        // Create notification icon (data URL)
-        function createNotificationIcon(emoji) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 128;
-            canvas.height = 128;
-            const ctx = canvas.getContext('2d');
-
-            // Background
-            ctx.fillStyle = '#2D5016';
-            ctx.fillRect(0, 0, 128, 128);
-
-            // Emoji
-            ctx.font = '64px serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillStyle = 'white';
-            ctx.fillText(emoji, 64, 64);
-
-            return canvas.toDataURL();
-        }
-
-        // Update notification schedule
-        function updateNotificationSchedule() {
-            startNotificationScheduler();
-            updateNextNotificationInfo();
-            saveUserData();
-        }
-
-        // Update next notification info display
+        // Update next notification info
         function updateNextNotificationInfo() {
             const infoDiv = document.getElementById('nextNotificationInfo');
             const timeDiv = document.getElementById('nextNotificationTime');
@@ -1427,35 +1274,33 @@
             const now = new Date();
             let nextNotifications = [];
 
-            // Add morning notification if enabled
             if (userData.settings.morningEnabled) {
-                const morningTime = userData.settings.morningTime.split(':');
-                const morningDate = new Date();
-                morningDate.setHours(parseInt(morningTime[0]), parseInt(morningTime[1]), 0, 0);
+                const [hours, minutes] = userData.settings.morningTime.split(':');
+                const morningTime = new Date();
+                morningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-                if (morningDate <= now) {
-                    morningDate.setDate(morningDate.getDate() + 1);
+                if (morningTime <= now) {
+                    morningTime.setDate(morningTime.getDate() + 1);
                 }
 
                 nextNotifications.push({
                     type: 'صبح',
-                    time: morningDate
+                    time: morningTime
                 });
             }
 
-            // Add evening notification if enabled
             if (userData.settings.eveningEnabled) {
-                const eveningTime = userData.settings.eveningTime.split(':');
-                const eveningDate = new Date();
-                eveningDate.setHours(parseInt(eveningTime[0]), parseInt(eveningTime[1]), 0, 0);
+                const [hours, minutes] = userData.settings.eveningTime.split(':');
+                const eveningTime = new Date();
+                eveningTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-                if (eveningDate <= now) {
-                    eveningDate.setDate(eveningDate.getDate() + 1);
+                if (eveningTime <= now) {
+                    eveningTime.setDate(eveningTime.getDate() + 1);
                 }
 
                 nextNotifications.push({
                     type: 'شام',
-                    time: eveningDate
+                    time: eveningTime
                 });
             }
 
@@ -1472,12 +1317,6 @@
                     <small class="text-muted">
                         ${hoursUntil > 0 ? `${hoursUntil} گھنٹے ` : ''}${minutesUntil} منٹ باقی
                     </small>
-                    <br>
-                    <small class="text-success">
-                        ${userData.settings.persistentEnabled && swRegistration ?
-                        '<i class="fas fa-check"></i> Background میں چلے گی' :
-                        '<i class="fas fa-exclamation-triangle"></i> صرف app کھلی ہونے پر'}
-                    </small>
                 `;
 
                 infoDiv.classList.remove('d-none');
@@ -1486,7 +1325,7 @@
             }
         }
 
-        // Check if user has selected schedule
+        // Check user schedule
         function checkUserSchedule() {
             if (userData.schedule) {
                 document.getElementById('schedule-selection').classList.add('d-none');
@@ -1494,48 +1333,6 @@
                 loadTodaysHadith();
                 updateDashboard();
                 loadSettings();
-            } else {
-                document.getElementById('schedule-selection').classList.remove('d-none');
-                document.getElementById('main-content').classList.add('d-none');
-            }
-        }
-
-        // Select schedule
-        function selectSchedule(schedule) {
-            selectedSchedule = schedule;
-
-            // Remove selected class from all options
-            document.querySelectorAll('.schedule-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-
-            // Add selected class to clicked option
-            document.querySelector(`[data-schedule="${schedule}"]`).classList.add('selected');
-
-            // Enable start button
-            document.getElementById('start-schedule').disabled = false;
-        }
-
-        // Start selected schedule
-        function startSelectedSchedule() {
-            if (selectedSchedule) {
-                userData.schedule = selectedSchedule;
-                userData.scheduleStartDate = new Date().toISOString();
-                saveUserData();
-
-                document.getElementById('schedule-selection').classList.add('d-none');
-                document.getElementById('main-content').classList.remove('d-none');
-
-                loadTodaysHadith();
-                updateDashboard();
-                loadSettings();
-
-                // Request notification permission if not granted
-                if (Notification.permission !== 'granted') {
-                    setTimeout(() => {
-                        requestNotificationPermission();
-                    }, 2000);
-                }
             }
         }
 
@@ -1552,7 +1349,38 @@
             document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
         }
 
-        // Load today's hadith (based on schedule)
+        // Schedule selection functions
+        function selectSchedule(schedule) {
+            selectedSchedule = schedule;
+
+            document.querySelectorAll('.schedule-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            document.querySelector(`[data-schedule="${schedule}"]`).classList.add('selected');
+            document.getElementById('start-schedule').disabled = false;
+        }
+
+        function startSelectedSchedule() {
+            if (selectedSchedule) {
+                userData.schedule = selectedSchedule;
+                userData.scheduleStartDate = new Date().toISOString();
+                saveUserData();
+
+                document.getElementById('schedule-selection').classList.add('d-none');
+                document.getElementById('main-content').classList.remove('d-none');
+
+                loadTodaysHadith();
+                updateDashboard();
+                loadSettings();
+
+                if (Notification.permission !== 'granted') {
+                    setTimeout(requestNotificationPermission, 2000);
+                }
+            }
+        }
+
+        // Load today's hadith
         function loadTodaysHadith() {
             const today = new Date();
             let hadithIndex;
@@ -1577,7 +1405,6 @@
             currentHadithIndex = hadithIndex;
             displayHadith(currentHadithIndex);
 
-            // Mark as read if not already read today
             const todayString = today.toDateString();
             if (userData.lastReadDate !== todayString) {
                 userData.totalRead++;
@@ -1589,41 +1416,6 @@
                 saveUserData();
                 updateDashboard();
             }
-        }
-
-        // Add hadith to recent list
-        function addToRecentHadiths(hadithIndex) {
-            const hadith = ahadithData.ahadith[hadithIndex];
-            const recentItem = {
-                id: hadith.id,
-                hadith: hadith.hadith.substring(0, 50) + '...',
-                date: new Date().toLocaleDateString('ur-PK'),
-                practiced: userData.practicedHadiths.includes(hadithIndex)
-            };
-
-            userData.recentHadiths.unshift(recentItem);
-            userData.recentHadiths = userData.recentHadiths.slice(0, 5);
-        }
-
-        // Update recent hadiths display
-        function updateRecentHadiths() {
-            const container = document.getElementById('recentHadiths');
-            if (userData.recentHadiths.length === 0) {
-                container.innerHTML = '<p class="text-muted small">ابھی کوئی حدیث نہیں پڑھی</p>';
-                return;
-            }
-
-            container.innerHTML = userData.recentHadiths.map(item => `
-                <div class="border rounded p-2 mb-2 small">
-                    <div class="fw-bold">${item.hadith}</div>
-                    <div class="d-flex justify-content-between mt-1">
-                        <span class="text-muted">${item.date}</span>
-                        <span class="badge ${item.practiced ? 'bg-success' : 'bg-secondary'}">
-                            ${item.practiced ? 'عمل کیا' : 'پڑھا'}
-                        </span>
-                    </div>
-                </div>
-            `).join('');
         }
 
         // Display hadith
@@ -1654,33 +1446,22 @@
             }
         }
 
-        // Mark hadith as practiced
+        // Mark as practiced
         function markAsPracticed(practiced) {
-            const hadithAlreadyAnswered = userData.practicedHadiths.includes(currentHadithIndex);
-
-            if (!hadithAlreadyAnswered) {
+            if (!userData.practicedHadiths.includes(currentHadithIndex)) {
                 if (practiced) {
                     userData.practicedHadiths.push(currentHadithIndex);
                     userData.totalPracticed++;
                     updateStreak();
                     showSuccessMessage('ماشاء اللہ! حدیث پر عمل کا اجر اللہ آپ کو دے!');
                 } else {
-                    showInfoMessage('کوئی بات نہیں، اگلی بار ضرور کوشش کریں۔ اللہ آپ کو توفیق دے!');
+                    showInfoMessage('کوئی بات نہیں، اگلی بار ضرور کوشش کریں۔');
                 }
 
                 updateRecentHadithPracticeStatus(currentHadithIndex, practiced);
                 saveUserData();
                 updateDashboard();
                 document.getElementById('practice-question').style.display = 'none';
-            }
-        }
-
-        // Update recent hadith practice status
-        function updateRecentHadithPracticeStatus(hadithIndex, practiced) {
-            const hadithId = ahadithData.ahadith[hadithIndex].id;
-            const recentItem = userData.recentHadiths.find(item => item.id === hadithId);
-            if (recentItem) {
-                recentItem.practiced = practiced;
             }
         }
 
@@ -1700,33 +1481,67 @@
             userData.lastPracticedDate = today;
         }
 
-        // Show success message
-        function showSuccessMessage(message) {
-            const messageEl = document.createElement('div');
-            messageEl.className = 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3';
-            messageEl.style.zIndex = '9999';
-            messageEl.style.maxWidth = '90%';
-            messageEl.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-            document.body.appendChild(messageEl);
+        // Add to recent hadiths
+        function addToRecentHadiths(hadithIndex) {
+            const hadith = ahadithData.ahadith[hadithIndex];
+            const recentItem = {
+                id: hadith.id,
+                hadith: hadith.hadith.substring(0, 50) + '...',
+                fullHadith: hadith.hadith,
+                date: new Date().toLocaleDateString('ur-PK'),
+                practiced: userData.practicedHadiths.includes(hadithIndex),
+                expanded: false,
+            };
 
-            setTimeout(() => {
-                messageEl.remove();
-            }, 4000);
+            userData.recentHadiths.unshift(recentItem);
+            userData.recentHadiths = userData.recentHadiths.slice(0, 5);
         }
 
-        // Show info message
-        function showInfoMessage(message) {
-            const messageEl = document.createElement('div');
-            messageEl.className = 'alert alert-info position-fixed top-0 start-50 translate-middle-x mt-3';
-            messageEl.style.zIndex = '9999';
-            messageEl.style.maxWidth = '90%';
-            messageEl.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
-            document.body.appendChild(messageEl);
-
-            setTimeout(() => {
-                messageEl.remove();
-            }, 4000);
+        // Update recent hadith practice status
+        function updateRecentHadithPracticeStatus(hadithIndex, practiced) {
+            const hadithId = ahadithData.ahadith[hadithIndex].id;
+            const recentItem = userData.recentHadiths.find(item => item.id === hadithId);
+            if (recentItem) {
+                recentItem.practiced = practiced;
+            }
         }
+
+        // Toggle hadith expansion
+        function toggleHadithExpansion(itemId) {
+            const item = userData.recentHadiths.find(h => h.id === itemId);
+            if (item) {
+                item.expanded = !item.expanded;
+                updateRecentHadiths();
+                saveUserData();
+            }
+        }
+
+        // Update recent hadiths display
+        function updateRecentHadiths() {
+            const container = document.getElementById('recentHadiths');
+            if (userData.recentHadiths.length === 0) {
+                container.innerHTML = '<p class="text-muted small">ابھی کوئی حدیث نہیں پڑھی</p>';
+                return;
+            }
+
+            container.innerHTML = userData.recentHadiths.map(item => `
+        <div class="border rounded p-2 mb-2 small">
+            <div class="fw-bold" style="cursor: pointer;" onclick="toggleHadithExpansion(${item.id})">
+                ${item.expanded ? item.fullHadith : item.hadith}
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-1">
+                <span class="text-muted">${item.date}</span>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge ${item.practiced ? 'bg-success' : 'bg-secondary'}">
+                        ${item.practiced ? 'عمل کیا' : 'پڑھا'}
+                    </span>
+                   
+                </div>
+            </div>
+        </div>
+    `).join('');
+        }
+
 
         // Show section navigation
         function showSection(section) {
@@ -1747,7 +1562,6 @@
                 document.getElementById('settings-content').classList.remove('d-none');
                 updateNotificationStatus();
                 updateNextNotificationInfo();
-                checkBackgroundStatus();
             }
         }
 
@@ -1757,13 +1571,11 @@
             document.getElementById('totalPracticed').textContent = userData.totalPracticed;
             document.getElementById('currentStreak').textContent = userData.currentStreak;
 
-            // Weekly progress
             const weeklyGoal = 7;
             const weeklyPracticed = Math.min(userData.currentStreak, weeklyGoal);
             document.getElementById('weeklyProgress').textContent = `${weeklyPracticed}/${weeklyGoal}`;
             document.getElementById('weeklyProgressBar').style.width = `${(weeklyPracticed / weeklyGoal) * 100}%`;
 
-            // Monthly progress
             const monthlyGoal = 30;
             const monthlyPracticed = Math.min(userData.totalPracticed, monthlyGoal);
             document.getElementById('monthlyProgress').textContent = `${monthlyPracticed}/${monthlyGoal}`;
@@ -1778,11 +1590,7 @@
             document.getElementById('eveningTime').value = userData.settings.eveningTime;
             document.getElementById('morningEnabled').checked = userData.settings.morningEnabled;
             document.getElementById('eveningEnabled').checked = userData.settings.eveningEnabled;
-            document.getElementById('persistentEnabled').checked = userData.settings.persistentEnabled;
-            document.getElementById('soundEnabled').checked = userData.settings.soundEnabled;
             document.getElementById('schedule-change').value = userData.schedule || 'today';
-
-            updateNotificationSchedule();
         }
 
         // Save settings
@@ -1791,8 +1599,6 @@
             userData.settings.eveningTime = document.getElementById('eveningTime').value;
             userData.settings.morningEnabled = document.getElementById('morningEnabled').checked;
             userData.settings.eveningEnabled = document.getElementById('eveningEnabled').checked;
-            userData.settings.persistentEnabled = document.getElementById('persistentEnabled').checked;
-            userData.settings.soundEnabled = document.getElementById('soundEnabled').checked;
 
             const newSchedule = document.getElementById('schedule-change').value;
             if (newSchedule !== userData.schedule) {
@@ -1810,9 +1616,9 @@
 
         // Reset progress
         function resetProgress() {
-            if (confirm('کیا آپ واقعی تمام ڈیٹا صاف کرنا چاہتے ہیں؟ یہ عمل واپس نہیں کیا جا سکتا۔')) {
-                notificationIntervals.forEach(interval => clearInterval(interval));
-                notificationIntervals = [];
+            if (confirm('کیا آپ واقعی تمام ڈیٹا صاف کرنا چاہتے ہیں؟')) {
+                notificationTimeouts.forEach(timeout => clearTimeout(timeout));
+                notificationTimeouts = [];
 
                 userData = {
                     totalRead: 0,
@@ -1829,143 +1635,56 @@
                         morningTime: '07:00',
                         eveningTime: '19:00',
                         morningEnabled: false,
-                        eveningEnabled: false,
-                        persistentEnabled: true,
-                        soundEnabled: true
+                        eveningEnabled: false
                     },
                     notifications: {
                         lastMorningNotification: null,
-                        lastEveningNotification: null,
-                        scheduledNotifications: [],
-                        backgroundJobs: []
+                        lastEveningNotification: null
                     }
                 };
+
                 localStorage.removeItem('hadithAppData');
                 showSuccessMessage('تمام ڈیٹا صاف ہو گیا!');
-                setTimeout(() => {
-                    location.reload();
-                }, 2000);
+                setTimeout(() => location.reload(), 2000);
             }
         }
 
-        // Handle page visibility changes
+        // Message display functions
+        function showSuccessMessage(message) {
+            const messageEl = document.createElement('div');
+            messageEl.className = 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3';
+            messageEl.style.zIndex = '9999';
+            messageEl.style.maxWidth = '90%';
+            messageEl.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(messageEl);
+            setTimeout(() => messageEl.remove(), 4000);
+        }
+
+        function showInfoMessage(message) {
+            const messageEl = document.createElement('div');
+            messageEl.className = 'alert alert-info position-fixed top-0 start-50 translate-middle-x mt-3';
+            messageEl.style.zIndex = '9999';
+            messageEl.style.maxWidth = '90%';
+            messageEl.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            document.body.appendChild(messageEl);
+            setTimeout(() => messageEl.remove(), 4000);
+        }
+
+        // Handle visibility changes
         document.addEventListener('visibilitychange', function () {
             if (!document.hidden) {
-                checkScheduledNotifications();
                 updateNextNotificationInfo();
-                checkBackgroundStatus();
             }
         });
 
-        // Handle page beforeunload
-        window.addEventListener('beforeunload', function () {
-            saveUserData();
-        });
+        // Handle page unload
+        window.addEventListener('beforeunload', saveUserData);
 
-        // Handle service worker messages
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.addEventListener('message', event => {
-                if (event.data && event.data.type === 'NOTIFICATION_CLICKED') {
-                    // Handle notification click
-                    showSection('hadith');
-                }
-            });
-        }
-
-        // Touch gestures for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const swipeThreshold = 100;
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    getRandomHadith();
-                } else {
-                    getRandomHadith();
-                }
-            }
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function (e) {
-            if (e.target.tagName.toLowerCase() !== 'input' && e.target.tagName.toLowerCase() !== 'textarea') {
-                switch (e.key) {
-                    case 'n':
-                    case 'N':
-                        getRandomHadith();
-                        break;
-                    case 'y':
-                    case 'Y':
-                        if (!userData.practicedHadiths.includes(currentHadithIndex)) {
-                            markAsPracticed(true);
-                        }
-                        break;
-                    case ' ':
-                        e.preventDefault();
-                        getRandomHadith();
-                        break;
-                    case 't':
-                    case 'T':
-                        testNotification();
-                        break;
-                }
-            }
-        });
-
-        // Wake Lock API for keeping app active (experimental)
-        let wakeLock = null;
-
-        async function requestWakeLock() {
-            if ('wakeLock' in navigator) {
-                try {
-                    wakeLock = await navigator.wakeLock.request('screen');
-                    console.log('Wake lock acquired');
-                } catch (err) {
-                    console.log('Wake lock failed:', err);
-                }
-            }
-        }
-
-        // Battery optimization warning for Android
-        function checkBatteryOptimization() {
-            const userAgent = navigator.userAgent.toLowerCase();
-            if (userAgent.includes('android')) {
-                setTimeout(() => {
-                    if (document.visibilityState === 'visible') {
-                        showInfoMessage('Android users: Notifications کے لیے Battery Optimization میں اس ایپ کو whitelist کریں');
-                    }
-                }, 5000);
-            }
-        }
-
-        // Initialize battery optimization check
-        setTimeout(checkBatteryOptimization, 3000);
-
-        // Periodic sync for missed notifications
-        setInterval(() => {
-            if (document.visibilityState === 'visible') {
-                checkScheduledNotifications();
-            }
-        }, 5 * 60 * 1000); // Check every 5 minutes
-
-        console.log('Hadith App with Background Notifications initialized');
+        console.log('Hadith PWA with Background Notifications initialized');
     </script>
 
-    <!-- Manifest for PWA -->
+    <!-- PWA Manifest -->
     <script>
-        // Create and inject manifest
         const manifest = {
             "name": "Daily Hadith Mubarak",
             "short_name": "Hadith App",
@@ -1975,11 +1694,17 @@
             "background_color": "#2D5016",
             "theme_color": "#2D5016",
             "orientation": "portrait",
+            "scope": "/",
             "icons": [
                 {
-                    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMyRDUwMTYiLz4KPHN2ZyB4PSI0OCIgeT0iNDgiIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiA2QzEzLjEgNiAxNCA2LjkgMTQgOFYxMEgxNkMxNi41IDEwIDE3IDEwLjQgMTcgMTFDMTcgMTEuNiAxNi41IDEyIDE2IDEySDE0VjE0QzE0IDE1LjEgMTMuMSAxNiAxMiAxNkMxMC45IDE2IDEwIDE1LjEgMTAgMTRWMTJIOEMzLjUgMTIgNyAxMS42IDcgMTFDNyAxMC40IDcuNSAxMCA4IDEwSDEwVjhDMTAgNi45IDEwLjkgNiAxMiA2WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cjwvc3ZnPgo=",
                     "sizes": "192x192",
-                    "type": "image/png"
+                    "type": "image/svg+xml"
+                },
+                {
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9IiMyRDUwMTYiLz4KPHN2ZyB4PSIxMjgiIHk9IjEyOCIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTIgNkMxMy4xIDYgMTQgNi45IDE0IDhWMTBIMTZDMTYuNSAxMCAxNyAxMC40IDE3IDExQzE3IDExLjYgMTYuNSAxMiAxNiAxMkgxNFYxNEMxNDE1LjEgMTMuMSAxNiAxMiAxNkMxMC45IDE2IDEwIDE1LjEgMTAgMTRWMTJIOEM3LjUgMTIgNyAxMS42IDcgMTFDNyAxMC40IDcuNSAxMCA4IDEwSDEwVjhDMTAgNi45IDEwLjkgNiAxMiA2WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cjwvc3ZnPgo=",
+                    "sizes": "512x512",
+                    "type": "image/svg+xml"
                 }
             ]
         };
